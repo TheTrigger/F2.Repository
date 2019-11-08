@@ -1,12 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Authors>f.fabrizi91@gmail.com</Authors>
+    <Description>Repository pattern base for EF Core 3.0 with AutoMapper out-of-the-box.
+Able to handle by-ID class and generic objects.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+    <Copyright>f.fabrizi91@gmail.com</Copyright>
+    <PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
+    <PackageTags>repository, pattern, aspnetcore, efcore</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
+  </PropertyGroup>
 
 </Project>

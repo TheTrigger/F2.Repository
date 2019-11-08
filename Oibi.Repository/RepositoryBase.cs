@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Oibi.Repository
 {
@@ -49,17 +51,21 @@ namespace Oibi.Repository
         /// Using <see cref="AutoMapper"/> to create <see cref="T"/> resource
         /// </summary>
         /// <param name="data">An <see cref="object"/> mappable to <see cref="T"/></param>
-        public T Create(object data)
-        {
-            var mapped = _mapper.Map<T>(data);
-            return _context.Set<T>().Add(mapped).Entity;
-        }
+        public T Create(object data) => _context.Set<T>().Add(_mapper.Map<T>(data)).Entity;
 
-        public R Create<R>(object data)
-        {
-            var created = Create(data);
-            return _mapper.Map<R>(created);
-        }
+        public M Create<M>(object data) => _mapper.Map<M>(Create(data));
+
+        #region ASYNC
+
+        //public ValueTask<EntityEntry<T>> CreateAsync(T entity) => _context.Set<T>().AddAsync(entity);
+
+        public async ValueTask<T> CreateAsync(T entity) => (await _context.Set<T>().AddAsync(entity).ConfigureAwait(false)).Entity;
+
+        public async ValueTask<M> CreateAsync<M>(T entity) => _mapper.Map<M>(await CreateAsync(entity).ConfigureAwait(false));
+
+        public async ValueTask<M> CreateAsync<M>(object data) => _mapper.Map<M>(await CreateAsync<T>(data).ConfigureAwait(false));
+
+        #endregion ASYNC
 
         #endregion CREATE
 

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oibi.Repository", "Oibi.Repository\Oibi.Repository.csproj", "{1F572504-F73D-41E6-B55C-8B8AF41505BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.Repository", "Oibi.Repository\Oibi.Repository.csproj", "{1F572504-F73D-41E6-B55C-8B8AF41505BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oibi.Repository.Tests", "Oibi.Repository.Tests\Oibi.Repository.Tests.csproj", "{2B273251-7970-45BF-AA1F-2BF67379E508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oibi.Repository.Demo", "Oibi.Repository.Demo\Oibi.Repository.Demo.csproj", "{C779D27E-01C6-4C01-AD08-5F8B69CA4FD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1F572504-F73D-41E6-B55C-8B8AF41505BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F572504-F73D-41E6-B55C-8B8AF41505BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F572504-F73D-41E6-B55C-8B8AF41505BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B273251-7970-45BF-AA1F-2BF67379E508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B273251-7970-45BF-AA1F-2BF67379E508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B273251-7970-45BF-AA1F-2BF67379E508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B273251-7970-45BF-AA1F-2BF67379E508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C779D27E-01C6-4C01-AD08-5F8B69CA4FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C779D27E-01C6-4C01-AD08-5F8B69CA4FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C779D27E-01C6-4C01-AD08-5F8B69CA4FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C779D27E-01C6-4C01-AD08-5F8B69CA4FD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

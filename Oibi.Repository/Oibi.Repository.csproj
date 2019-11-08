@@ -3,8 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Authors>f.fabrizi91@gmail.com</Authors>
-    <Description>Repository pattern base for EF Core 3.0 with AutoMapper out-of-the-box.
-Able to handle by-ID class and generic objects.</Description>
+    <Description>Generic repository pattern base for EF Core + AutoMapper. Able to handle by-ID class and generic objects</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +20,7 @@ Able to handle by-ID class and generic objects.</Description>
     <PackageTags>repository, pattern, aspnetcore, efcore</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace Oibi.Repository.Abstracts
 {
     public abstract class RepositoryEntityBase<T, PK> : RepositoryBase<T>
         where T : class, IEntity<PK>, new()
-        where PK : struct, IEquatable<PK>
+        where PK : struct
     {
         protected RepositoryEntityBase(DbContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
         {

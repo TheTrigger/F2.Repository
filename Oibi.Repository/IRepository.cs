@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Oibi.Repository
 {
     public interface IRepository<T, PK> : IQueryable<T>
+        where T : class
     {
         IQueryable<T> FindAll();
 
@@ -16,13 +18,11 @@ namespace Oibi.Repository
 
         M Create<M>(object data);
 
-        /*
-        Task<T> CreateAsync(T entity);
+        //ValueTask<EntityEntry<T>> CreateAsync(T entity);
 
-        Task<T> CreateAsync(object data);
+        //ValueTask<EntityEntry<T>> CreateAsync(object data);
 
-        Task<M> CreateAsync<M>(object data);
-        */
+        //ValueTask<EntityEntry<M>> CreateAsync<M>(object data) where M : class;
 
         #endregion CREATE
 

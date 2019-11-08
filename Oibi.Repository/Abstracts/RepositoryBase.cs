@@ -24,9 +24,9 @@ namespace Oibi.Repository.Abstracts
         public Expression Expression => Queryable.Expression;
         public IQueryProvider Provider => Queryable.Provider;
 
-        IEnumerator IEnumerable.GetEnumerator() => Queryable.GetEnumerator();
-
         public IEnumerator GetEnumerator() => Queryable.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => Queryable.GetEnumerator();
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => Queryable.GetEnumerator();
 
@@ -40,6 +40,11 @@ namespace Oibi.Repository.Abstracts
 
         #region CREATE
 
+        /// <summary>
+        /// Create new entity of type <see cref="T"/>
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public T Create(T entity) => Set.Add(entity).Entity;
 
         /// <summary>

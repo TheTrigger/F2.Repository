@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Oibi.Repository.Interfaces;
-using System;
 using System.Linq;
 
 namespace Oibi.Repository.Abstracts
@@ -21,6 +20,11 @@ namespace Oibi.Repository.Abstracts
         /// </summary>
         /// <param name="id">Primary Key</param>
         public T Retrieve(PK id) => Set.Single(s => s.Id.Equals(id));
+
+        /// <summary>
+        /// Retrieve <see cref="T"/> mapped to <see cref="MAP"/>
+        /// </summary>
+        public MAP Retrieve<MAP>(PK id) => _mapper.Map<MAP>(Set.Single(s => s.Id.Equals(id)));
 
         #endregion RETRIEVE
 

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Oibi.Repository.Interfaces
+﻿namespace Oibi.Repository.Interfaces
 {
     public interface IRepositoryEntity<T, PK> : IRepository<T> where T : class
     {

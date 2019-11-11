@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Oibi.Repository.Interfaces
+﻿namespace Oibi.Repository.Interfaces
 {
     /// <summary>
     /// Optional interface to use by-id functions

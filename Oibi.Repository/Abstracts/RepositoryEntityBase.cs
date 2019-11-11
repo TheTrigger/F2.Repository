@@ -30,7 +30,11 @@ namespace Oibi.Repository.Abstracts
 
         #region UPDATE
 
-        public T Update(PK id, T entity) => Update(entity.Id = id);
+        public T Update(PK id, T entity)
+        {
+            entity.Id = id;
+            return Update(entity);
+        }
 
         public T Update(PK id, object data) => Update(id, _mapper.Map<T>(data));
 

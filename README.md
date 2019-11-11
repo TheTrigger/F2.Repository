@@ -38,7 +38,7 @@ public class Customer : IEntity<Guid>
 }
 ```
 
-# Getting started
+## Getting started
 
 ```Sh
 Install-Package Oibi.Repository
@@ -157,7 +157,7 @@ public class RepositoryWrapper : IRepositoryWrapper
 services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 ```
 
-# Usage example
+## Usage example
 
 ```Csharp
 /// <summary>

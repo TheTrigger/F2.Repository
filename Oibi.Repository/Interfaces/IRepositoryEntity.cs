@@ -1,4 +1,6 @@
-﻿namespace Oibi.Repository.Interfaces
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Oibi.Repository.Interfaces
 {
     public interface IRepositoryEntity<T, PK> : IRepository<T> where T : class
     {
@@ -6,13 +8,13 @@
 
         #region UPDATE
 
-        T Update(PK id, T entity);
+        T Update(PK id, [NotNull] T entity);
 
-        T Update(PK id, object data);
+        T Update(PK id, [NotNull] object data);
 
-        MAP Update<MAP>(PK id, T data);
+        MAP Update<MAP>(PK id, [NotNull] T data);
 
-        MAP Update<MAP>(PK id, object data);
+        MAP Update<MAP>(PK id, [NotNull] object data);
 
         #endregion UPDATE
 

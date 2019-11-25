@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Oibi.Repository.Interfaces;
 using System;
@@ -16,8 +17,6 @@ namespace Oibi.Repository.Abstracts
 
         #region AS QUERYABLE
 
-        private DbSet<T> _set;
-        protected DbSet<T> Set => _set ??= _context.Set<T>();
         protected IQueryable<T> Queryable => Set.AsQueryable();
 
         public Type ElementType => typeof(T);
@@ -31,6 +30,9 @@ namespace Oibi.Repository.Abstracts
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => Queryable.GetEnumerator();
 
         #endregion AS QUERYABLE
+
+        private DbSet<T> _set;
+        protected DbSet<T> Set => _set ??= _context.Set<T>();
 
         protected RepositoryBase(DbContext repositoryContext, IMapper mapper)
         {
@@ -84,7 +86,13 @@ namespace Oibi.Repository.Abstracts
 
         public T Update(object data) => Set.Update(_mapper.Map<T>(data)).Entity;
 
-        public T Update(T entity) => Set.Update(entity).Entity;
+        public T Update(T entity)
+        {
+            // logger action
+            // logger raw sql
+            // timewatch
+            return Set.Update(entity).Entity;
+        }
 
         public MAP Update<MAP>(T data) => _mapper.Map<MAP>(Update(data));
 

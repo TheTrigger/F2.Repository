@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Oibi.Repository.Demo.Models;
 
 namespace Oibi.Repository.Demo
 {
@@ -18,6 +20,11 @@ namespace Oibi.Repository.Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<LibraryDbContext>(config =>
+            {
+                config.UseInMemoryDatabase(nameof(LibraryDbContext));
+            });
+
             services.AddControllers();
         }
 

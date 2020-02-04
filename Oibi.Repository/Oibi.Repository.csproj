@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>f.fabrizi91@gmail.com</Authors>
     <Description>Generic repository pattern base for EF Core + AutoMapper. Able to handle by-ID class and generic objects</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -20,7 +20,7 @@
     <PackageTags>repository, pattern, aspnetcore, efcore</PackageTags>
     <PackageReleaseNotes>- Fixes</PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>1.0.3</Version>
+    <Version>3.1.0.1</Version>
   </PropertyGroup>
 
 </Project>

@@ -2,3 +2,6 @@
 
 # S125: Sections of code should not be commented out
 dotnet_diagnostic.S125.severity = silent
+
+# S4220: Events should have proper arguments
+dotnet_diagnostic.S4220.severity = none

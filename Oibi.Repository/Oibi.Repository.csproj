@@ -17,10 +17,11 @@
     <PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
-    <PackageTags>repository, pattern, aspnetcore, efcore</PackageTags>
-    <PackageReleaseNotes>- Fixes</PackageReleaseNotes>
+    <PackageTags>repository, pattern, aspnetcore, efcore, automapper</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>3.1.0.1</Version>
+    <Version>3.1.1.0</Version>
+    <Company>oibi.dev</Company>
   </PropertyGroup>
 
 </Project>

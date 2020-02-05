@@ -6,6 +6,6 @@ namespace Oibi.Repository.Demo.Models
     {
         public string Name { get; set; }
 
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<BookAuthors> BookAuthors { get; set; }
     }
 }

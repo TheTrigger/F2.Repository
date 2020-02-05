@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Oibi.Repository.Demo.Models
 {
@@ -7,6 +8,9 @@ namespace Oibi.Repository.Demo.Models
     {
         public string Title { get; set; }
 
-        public virtual ICollection<Author> BookAuthors { get; set; }
+        [StringLength(13, MinimumLength = 13)]
+        public string Isbn { get; set; }
+
+        public virtual ICollection<BookAuthors> BookAuthors { get; set; }
     }
 }

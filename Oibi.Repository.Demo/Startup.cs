@@ -1,10 +1,13 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Oibi.Repository.Demo.Mapper;
 using Oibi.Repository.Demo.Models;
+using Oibi.Repository.Demo.Repositories;
 
 namespace Oibi.Repository.Demo
 {
@@ -12,20 +15,24 @@ namespace Oibi.Repository.Demo
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration _configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LibraryDbContext>(config =>
-            {
-                config.UseInMemoryDatabase(nameof(LibraryDbContext));
-            });
+            // package Microsoft.EntityFrameworkCore.InMemory
+            services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
 
-            services.AddControllers();
+            // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddScoped<AuthorRepository>();
+            services.AddScoped<BookRepository>();
+
+            services.AddControllers(); //.AddJsonOptions(option => { });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

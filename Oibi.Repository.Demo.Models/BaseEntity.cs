@@ -19,7 +19,7 @@ namespace Oibi.Repository.Demo.Models
         protected static Guid CreateCryptographicallySecureGuid()
         {
             using var provider = new RNGCryptoServiceProvider();
-
+            
             var bytes = new byte[16];
             provider.GetBytes(bytes);
 

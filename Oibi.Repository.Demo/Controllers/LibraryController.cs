@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Oibi.Repository.Demo.Mapper.Dto;
 using Oibi.Repository.Demo.Repositories;
-using System.Threading.Tasks;
 
 namespace Oibi.Repository.Demo.Controllers
 {

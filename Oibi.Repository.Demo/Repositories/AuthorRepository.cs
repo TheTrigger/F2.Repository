@@ -2,7 +2,6 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Oibi.Repository.Abstracts;
-using Oibi.Repository.Demo.Mapper.Dto;
 using Oibi.Repository.Demo.Models;
 using System.Collections.Generic;
 

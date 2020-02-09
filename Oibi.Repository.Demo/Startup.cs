@@ -21,10 +21,11 @@ namespace Oibi.Repository.Demo
         private readonly IConfiguration _configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public static void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             // package Microsoft.EntityFrameworkCore.InMemory
-            services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
+            // services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
+            services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration["ConnectionStrings:Demo"]));
 
             // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
             services.AddAutoMapper(typeof(MappingProfile));
@@ -32,7 +33,13 @@ namespace Oibi.Repository.Demo
             services.AddScoped<AuthorRepository>();
             services.AddScoped<BookRepository>();
 
-            services.AddControllers(); //.AddJsonOptions(option => { });
+            /*
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.AllowTrailingCommas = true;
+            });
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,12 +23,6 @@ namespace Oibi.Repository.Interfaces
         /// </summary>
         MAP Create<MAP>([DisallowNull] object data);
 
-        //ValueTask<T> CreateAsync(T entity);
-
-        //ValueTask<T> CreateAsync(object data);
-
-        //ValueTask<MAP> CreateAsync<MAP>(object data);
-
         #endregion CREATE
 
         #region UPDATE

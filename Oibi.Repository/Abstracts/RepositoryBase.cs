@@ -37,6 +37,7 @@ namespace Oibi.Repository.Abstracts
         #endregion AS QUERYABLE
 
         private DbSet<TEntity> _set;
+
         /// <summary>
         /// TODO: make protected
         /// </summary>
@@ -133,17 +134,6 @@ namespace Oibi.Repository.Abstracts
 
         #endregion DELETE
 
-        /// <summary>
-        /// Cos'è sta roba. was high?
-        /// </summary>
-        /// <returns></returns>
-        // public virtual IQueryable<TEntity> GetAll() => Set;
-
-        // ok but useless. still high
-        //public virtual IEnumerable<TDestMap> MapTo<TDestMap>(IEnumerable<TEntity> queryable) => _mapper.Map<IEnumerable<TDestMap>>(queryable);
-        //public virtual IEnumerable<TDestMap> MapTo<TDestMap>() => _mapper.Map<IEnumerable<TDestMap>>(Set);
-
-        // was high? - maybe its ok
         public IQueryable<TDestMap> ProjectTo<TDestMap>() => Set.ProjectTo<TDestMap>(_mapper.ConfigurationProvider);
 
         // toto extension with parameters and wrap? no you cant lol
@@ -153,5 +143,30 @@ namespace Oibi.Repository.Abstracts
         /// </summary>
         /// <returns></returns>
         protected Task<int> SaveChangesAsync() => _context.SaveChangesAsync(_cancellationToken);
+
+        #region EVENTS
+
+        /// <summary>
+        /// Raise after calling <see cref="RepositoryBase{TEntity}.Create(TEntity)"/>
+        /// </summary>
+        public static event EventHandler<RepositoryEventArgs<TEntity>> Created;
+
+        /// <summary>
+        /// Raise after calling <see cref="RepositoryBase{TEntity}.Update(TEntity)"/>
+        /// </summary>
+        public static event EventHandler<RepositoryEventArgs<TEntity>> Updated;
+
+        /// <summary>
+        /// Raise after calling <see cref="RepositoryBase{TEntity}.Delete(TEntity)"/>
+        /// </summary>
+        public static event EventHandler<RepositoryEventArgs<TEntity>> Deleted;
+
+        protected virtual void OnCreated(RepositoryEventArgs<TEntity> e) => Created?.Invoke(this, e);
+
+        protected virtual void OnUpdated(RepositoryEventArgs<TEntity> e) => Updated?.Invoke(this, e);
+
+        protected virtual void OnDeleted(RepositoryEventArgs<TEntity> e) => Deleted?.Invoke(this, e);
+
+        #endregion EVENTS
     }
 }

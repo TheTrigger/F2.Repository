@@ -56,9 +56,6 @@ namespace Oibi.Repository.Abstracts
 
         #region DELETE
 
-        //public virtual TEntity Delete(TKey id) => Set.Remove(new TEntity { Id = id }).Entity;
-        //public virtual void DeleteRange(IEnumerable<TKey> ids) => Set.RemoveRange(ids.Select(id => new TEntity { Id = id }));
-
         public virtual TEntity Delete(TKey id)
         {
             var entity = new TEntity { Id = id };

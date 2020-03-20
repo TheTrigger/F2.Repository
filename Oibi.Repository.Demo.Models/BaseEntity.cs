@@ -9,8 +9,8 @@ namespace Oibi.Repository.Demo.Models
     public abstract class BaseEntity : IEntity<Guid>
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; } = CreateCryptographicallySecureGuid(); // Test seeding purpose
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; set; } = CreateCryptographicallySecureGuid();
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

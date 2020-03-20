@@ -1,50 +1,90 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8130b9924a7f40c38afa2fcf132135cc)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=TheTrigger/Oibi.Repository&utm_campaign=Badge_Grade)
-
 # Oibi.Repository
 
-Abstraction of repository pattern that include [AutoMapper](https://github.com/AutoMapper/AutoMapper).
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8130b9924a7f40c38afa2fcf132135cc)](https://www.codacy.com?utm_source=github.com&utm_medium=referral&utm_content=TheTrigger/Oibi.Repository&utm_campaign=Badge_Grade)
 
-There are **two types of a generic repository**, one that does not implement operations by `primary key`, and the other that implements operations by `primary key` (such as retrieve/update/delete).
+Abstract repository pattern that include [AutoMapper](https://github.com/AutoMapper/AutoMapper), supports both entities with `primary key` and without.
 
-`GenericRepository<Customer>` <-- No primary key property
-
-`GenericEntityRepository<Customer>` <-- Primary key property `Guid`
-
-You could also create your own abstract:
+BaseRepository implements `IQueryable` so you can **query directly**
 
 ```Csharp
-public abstract class MyOwnGenericEntityRepository<T> : RepositoryEntityBase<T, <YOUR_PRIMARY_KEY_TYPE_HERE> where T : class, IEntity<YOUR_PRIMARY_KEY_TYPE_HERE>, new()
-{
-    protected MyOwnGenericEntityRepository(DbContext repositoryContext, IMapper mapper);
-}
+_customerRepository.Where(w => w.Name.Contains("wtf"));
 ```
 
-_Unfortunately_, your classes that have a primary key, should implement the interface `IEntity<PKTYPE>` class.
+`abstract GenericRepository<Customer>` <-- No primary key property
 
-[As aspnetcore convention](https://docs.microsoft.com/it-it/ef/core/modeling/keys#conventions), the primary key would be named `Id`, not `IdGandalf` of `Customer.CustomerIdCustomerWtfCustomer`. Yes, `CustomerId` would be legal. But not here for a obvious reason.
+`abstract GenericEntityRepository<Customer>` <-- Primary key property `TKey`, usually `Guid`
 
-Example:
+## TODO
 
-```Csharp
-public class Customer : IEntity<Guid>
-{
-    public Guid Id { get; set; }
-
-    public string Name { get; set; }
-
-    public virtual ICollection<Ticket> Tickets { get; set; }
-
-    public virtual ICollection<Subscription> Subscriptions { get; set; }
-}
-```
+- [ ] events
+- [ ] Graphql demo
 
 ## Getting started
 
-```Sh
+## 1. Install Nuget package [Oibi.Repository](https://www.nuget.org/packages/Oibi.Repository/)
+
+```sh
 Install-Package Oibi.Repository
 ```
 
-## AutoMapper example configuration
+## 2. Implement `IEntity<TKey>` on your models
+
+Optionally, you can create your own `BaseEntity`:
+
+```CSharp
+public abstract class BaseEntity : IEntity<Guid>
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public Guid Id { get; set; } = CreateCryptographicallySecureGuid();
+
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+    public DateTime UpdatedAt { get; set; }
+
+    protected static Guid CreateCryptographicallySecureGuid()
+    {
+        using var provider = new RNGCryptoServiceProvider();
+
+        var bytes = new byte[16];
+        provider.GetBytes(bytes);
+
+        return new Guid(bytes);
+    }
+}
+```
+
+```CSharp
+public class Book : BaseEntity
+{
+    public string Title { get; set; }
+
+    public string Isbn { get; set; }
+
+    public virtual ICollection<BookAuthors> BookAuthors { get; set; }
+}
+```
+
+## 3. Implement your repository from `GenericEntityRepository<TEntityType>` or `GenericRepository<TEntityType>` abstract
+
+```CSharp
+using AutoMapper;
+using Oibi.Repository.Abstracts;
+
+public class CustomerRepository : GenericEntityRepository<Customer>
+{
+    public CustomerRepository(WorkifyContext context, IMapper mapper) : base(context, mapper)
+    {
+    }
+
+    // ... continue with your methods
+}
+```
+
+- [By convention, a property named Id or <type name>Id will be configured as the primary key of an entity.](https://docs.microsoft.com/it-it/ef/core/modeling/keys#conventions)
+  Here I needed to choose a single convention, so I used Id as a standard `primary key` property.
+
+## 4. Configure your mappers
 
 ```Csharp
 public class MappingProfile : Profile
@@ -70,92 +110,22 @@ public class MappingProfile : Profile
 }
 ```
 
-## Create your own Repository classes
+## 5. Add your repository to services
+
+Startup.cs ConfigureServices():
 
 ```Csharp
-using AutoMapper;
-using Oibi.Repository.Abstracts;
+// ...
+services.AddAutoMapper(typeof(MappingProfile)); // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
+services.AddScoped<CustomerRepository>();
 
-public class CustomerRepository : GenericEntityRepository<Customer>
-{
-    public CustomerRepository(WorkifyContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
-    {
-    }
-}
-
-public class EmployeeRepository : GenericEntityRepository<Employee>
-{
-    public EmployeeRepository(WorkifyContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
-    {
-    }
-}
-
-public class SubscriptionRepository : GenericEntityRepository<Subscription>
-{
-    public SubscriptionRepository(WorkifyContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
-    {
-    }
-}
-
-public class TicketRepository : GenericEntityRepository<Ticket>
-{
-    public TicketRepository(WorkifyContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
-    {
-    }
-}
+// CustomerService left out for brevity
+// ...
 ```
 
-### Create your own Repository Wrapper
+## You're ready
 
-```Csharp
-public interface IRepositoryWrapper
-{
-    CustomerRepository Customers { get; }
-    EmployeeRepository Employees { get; }
-    SubscriptionRepository Subscriptions { get; }
-    TicketRepository Tickets { get; }
-
-    Task<int> SaveAsync(CancellationToken cancellationToken = default);
-}
-```
-
-```Csharp
-public class RepositoryWrapper : IRepositoryWrapper
-{
-    private readonly WorkifyContext _context;
-    private readonly IMapper _mapper;
-
-    private CustomerRepository _customers;
-    private EmployeeRepository _employees;
-    private SubscriptionRepository _subscriptions;
-    private TicketRepository _tickets;
-
-    public RepositoryWrapper(WorkifyContext context, IMapper mapper)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
-
-    // C# 8 syntax
-    public CustomerRepository Customers => _customers ??= new CustomerRepository(_context, _mapper);
-
-    public EmployeeRepository Employees => _employees ??= new EmployeeRepository(_context, _mapper);
-
-    public SubscriptionRepository Subscriptions => _subscriptions ??= new SubscriptionRepository(_context, _mapper);
-
-    public TicketRepository Tickets => _tickets ??= new TicketRepository(_context, _mapper);
-
-    public Task<int> SaveAsync(CancellationToken cancellationToken = default) => _context.SaveChangesAsync(cancellationToken);
-}
-```
-
-## Register repository service
-
-### Startup.cs ConfigureServices
-
-```Csharp
-services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-```
+See Demo project
 
 ## Usage example
 
@@ -166,10 +136,13 @@ services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 [HttpPost]
 public async Task<IActionResult> Create(CreateCustomerDto dto)
 {
-    // new customer will be created and mapped to CustomerResponseDto
-    var mapped = _repositories.Customers.Create<CustomerResponseDto>(dto);
+    // 1. CreateCustomerDto dto is auto-mapped to TEntity object
+    // 2. entity is created
+    // 3. EF entity is mapped to CustomerResponseDto and returned
+    // nb; with EFCore 3+ the primary key Id is the effective id after context save
+    var mapped = _customerRepository.Create<CustomerResponseDto>(dto);
 
-    await _repositories.SaveAsync();
+    await _customerRepository.SaveAsync(); // ..
 
     return Ok(mapped);
 }
@@ -178,20 +151,15 @@ public async Task<IActionResult> Create(CreateCustomerDto dto)
 ## Snippets
 
 ```Csharp
-_repositories.Customers.Retrieve(id);
-_repositories.Customers.Retrieve<CustomerDto>(id);
+_customerRepository.Retrieve(id);
+_customerRepository.Retrieve<CustomerDto>(id);
 
-_repositories.Customers.Delete(id);
-_repositories.Customers.Delete(entity);
+_customerRepository.Delete(id);
+_customerRepository.Delete(entity);
+_customerRepository.Update(id, dto);
 
-_repositories.Customers.Update(id, dto);
-_repositories.Customers.Update<CustomerDto>(id, entity);
-_repositories.Customers.Update<CustomerDto>(id, dto);
+_customerRepository.Update<CustomerDto>(id, entity);
+_customerRepository.Update<CustomerDto>(id, dto);
+
 ...etc
-```
-
-The repository also implementing `IQueryable` so you could directly use `Linq` on property:
-
-```Csharp
-_repositories.Customers.Where(w => w.Name.Contains("wtf"));
 ```

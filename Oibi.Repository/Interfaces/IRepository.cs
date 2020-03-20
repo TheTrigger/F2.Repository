@@ -1,32 +1,27 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Oibi.Repository.Interfaces
 {
-    public interface IRepository<T> : IQueryable<T> where T : class
+    public interface IRepository<TEntity> : IQueryable<TEntity> where TEntity : notnull
     {
         #region CREATE
 
         /// <summary>
-        /// Create a new <see cref="T"/> entity
+        /// Create a new <see cref="TEntity"/> entity
         /// </summary>
-        T Create([NotNull] T entity);
+        TEntity Create([DisallowNull] TEntity entity);
 
         /// <summary>
-        /// Create a new <see cref="T"/> entity from a compatible DTO
+        /// Create a new <see cref="TEntity"/> entity from a compatible DTO
         /// </summary>
-        T Create([NotNull] object data);
+        TEntity Create([DisallowNull] object data);
 
         /// <summary>
-        /// Create a new <see cref="T"/> entity from a DTO then mapped to <see cref="MAP"/>
+        /// Create a new <see cref="TEntity"/> entity from a DTO then mapped to <see cref="MAP"/>
         /// </summary>
-        MAP Create<MAP>([NotNull] object data);
-
-        //ValueTask<T> CreateAsync(T entity);
-
-        //ValueTask<T> CreateAsync(object data);
-
-        //ValueTask<MAP> CreateAsync<MAP>(object data);
+        MAP Create<MAP>([DisallowNull] object data);
 
         #endregion CREATE
 
@@ -35,7 +30,7 @@ namespace Oibi.Repository.Interfaces
         /// <summary>
         /// Update an entity
         /// </summary>
-        T Update([NotNull] T entity);
+        TEntity Update([DisallowNull] TEntity entity);
 
         #endregion UPDATE
 
@@ -44,7 +39,9 @@ namespace Oibi.Repository.Interfaces
         /// <summary>
         /// Delete an entity
         /// </summary>
-        T Delete([NotNull] T entity);
+        TEntity Delete([DisallowNull] TEntity entity);
+
+        void DeleteRange([DisallowNull] IEnumerable<TEntity> entities);
 
         #endregion DELETE
     }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Oibi.Repository.Interfaces
 {
@@ -21,6 +22,8 @@ namespace Oibi.Repository.Interfaces
         #region DELETE
 
         T Delete(PK id);
+
+        void DeleteRange(IEnumerable<PK> ids);
 
         #endregion DELETE
     }

@@ -1,8 +1,13 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Oibi.Repository.Demo.Mapper;
+using Oibi.Repository.Demo.Models;
+using Oibi.Repository.Demo.Repositories;
 
 namespace Oibi.Repository.Demo
 {
@@ -10,15 +15,31 @@ namespace Oibi.Repository.Demo
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration _configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public static void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            // package Microsoft.EntityFrameworkCore.InMemory
+            // services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
+            services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration["ConnectionStrings:Demo"]));
+
+            // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddScoped<AuthorRepository>();
+            services.AddScoped<BookRepository>();
+
+            /*
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.AllowTrailingCommas = true;
+            });
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

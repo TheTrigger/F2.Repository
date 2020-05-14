@@ -6,7 +6,7 @@ namespace Oibi.Repository.Demo.Repositories
 {
     public class BookRepository : GenericEntityRepository<Book>
     {
-        public BookRepository(LibraryContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
+        public BookRepository(LibraryContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

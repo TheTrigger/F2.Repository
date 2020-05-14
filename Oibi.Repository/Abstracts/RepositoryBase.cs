@@ -17,7 +17,7 @@ namespace Oibi.Repository.Abstracts
         /// <summary>
         /// TODO: to be disposed?
         /// </summary>
-        private CancellationToken _cancellationToken = new CancellationToken();
+        private readonly CancellationToken _cancellationToken = new CancellationToken();
 
         protected readonly DbContext _context;
         protected readonly IMapper _mapper;

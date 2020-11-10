@@ -25,10 +25,11 @@ namespace Oibi.Repository.Demo
         {
             // package Microsoft.EntityFrameworkCore.InMemory
             // services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
-            services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration["ConnectionStrings:Demo"]));
+            services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration.GetConnectionString("Demo")));
 
             // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
             services.AddAutoMapper(typeof(MappingProfile));
+            services.AddControllers();
 
             services.AddScoped<AuthorRepository>();
             services.AddScoped<BookRepository>();
@@ -45,11 +46,6 @@ namespace Oibi.Repository.Demo
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseRouting();
 
             app.UseAuthorization();

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Oibi.Repository.Interfaces
 {
-    public interface IRepository<TEntity> : IQueryable<TEntity> where TEntity : notnull
+    public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity> where TEntity : notnull
     {
         #region CREATE
 

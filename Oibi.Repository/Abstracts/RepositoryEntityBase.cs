@@ -26,9 +26,9 @@ namespace Oibi.Repository.Abstracts
         /// <summary>
         /// Retrieve <see cref="TEntity"/> mapped to <see cref="MAP"/>
         /// </summary>
-        //public MAP Retrieve<MAP>(PK id) => _mapper.Map<MAP>(Set.Single(s => s.Id.Equals(id)));
-        public virtual MAP Retrieve<MAP>(TKey id) where MAP : IEntity<TKey>
-            => Set.ProjectTo<MAP>(_mapper.ConfigurationProvider).Single(s => s.Id.Equals(id));
+        public MAP Retrieve<MAP>(TKey id) => _mapper.Map<MAP>(Set.Single(s => s.Id.Equals(id)));
+        //public virtual MAP Retrieve<MAP>(TKey id) where MAP : IEntity<TKey>
+            //=> Set.ProjectTo<MAP>(_mapper.ConfigurationProvider).Single(s => s.Id.Equals(id));
 
         #endregion RETRIEVE
 

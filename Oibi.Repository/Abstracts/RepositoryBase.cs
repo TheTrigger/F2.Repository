@@ -12,161 +12,189 @@ using System.Threading.Tasks;
 
 namespace Oibi.Repository.Abstracts
 {
-    public abstract partial class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, new()
-    {
-        /// <summary>
-        /// TODO: to be disposed?
-        /// </summary>
-        private readonly CancellationToken _cancellationToken = new CancellationToken();
+	public abstract partial class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, new()
+	{
+		/// <summary>
+		/// TODO: to be disposed?
+		/// </summary>
+		private readonly CancellationToken _cancellationToken = new CancellationToken();
 
-        protected readonly DbContext _context;
-        protected readonly IMapper _mapper;
+		protected readonly DbContext _context;
+		protected readonly IMapper _mapper;
 
-        #region AS QUERYABLE
+		#region AS QUERYABLE
 
-        protected IQueryable<TEntity> Queryable => Set.AsQueryable();
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		protected IQueryable<TEntity> Queryable => Set.AsQueryable();
 
-        public Type ElementType => typeof(TEntity);
-        public Expression Expression => Queryable.Expression;
-        public IQueryProvider Provider => Queryable.Provider;
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public Type ElementType => typeof(TEntity);
 
-        public IEnumerator GetEnumerator() => Queryable.GetEnumerator();
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public Expression Expression => Queryable.Expression;
 
-        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => Queryable.GetEnumerator();
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public IQueryProvider Provider => Queryable.Provider;
 
-        #endregion AS QUERYABLE
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		/// <returns><inheritdoc/></returns>
+		public IEnumerator GetEnumerator() => Queryable.GetEnumerator();
 
-        private DbSet<TEntity> _set;
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		/// <returns><inheritdoc/></returns>
+		IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => Queryable.GetEnumerator();
 
-        /// <summary>
-        /// TODO: make protected
-        /// </summary>
-        public DbSet<TEntity> Set => _set ??= _context.Set<TEntity>();
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		/// <param name="cancellationToken"><inheritdoc/></param>
+		/// <returns><inheritdoc/></returns>
+		public IAsyncEnumerator<TEntity> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+			=> Set.AsAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
 
-        protected RepositoryBase(DbContext repositoryContext, IMapper mapper)
-        {
-            _context = repositoryContext;
-            _mapper = mapper;
-        }
+		#endregion AS QUERYABLE
 
-        #region CREATE
+		private DbSet<TEntity> _set;
 
-        /// <summary>
-        /// Create new entity of type <see cref="TEntity"/>
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual TEntity Create(TEntity entity)
-        {
-            var ee = Set.Add(entity);
+		/// <summary>
+		/// TODO: make protected
+		/// </summary>
+		public DbSet<TEntity> Set => _set ??= _context.Set<TEntity>();
 
-            OnCreated(new RepositoryEventArgs<TEntity>(ee));
+		protected RepositoryBase(DbContext repositoryContext, IMapper mapper)
+		{
+			_context = repositoryContext;
+			_mapper = mapper;
+		}
 
-            return ee.Entity;
-        }
+		#region CREATE
 
-        /// <summary>
-        /// Using <see cref="AutoMapper"/> to create <see cref="TEntity"/> resource
-        /// </summary>
-        /// <param name="data">An <see cref="object"/> mappable to <see cref="TEntity"/></param>
-        public virtual TEntity Create(object data) => Set.Add(_mapper.Map<TEntity>(data)).Entity;
+		/// <summary>
+		/// Create new entity of type <see cref="TEntity"/>
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <returns></returns>
+		public virtual TEntity Create(TEntity entity)
+		{
+			var ee = Set.Add(entity);
 
-        /// <summary>
-        /// Create a new entity from a dto and returns a dto using <see cref="AutoMapper"/>
-        /// </summary>
-        /// <typeparam name="TDestMap"></typeparam>
-        /// <param name="data"></param>
-        public virtual TDestMap Create<TDestMap>(object data) => _mapper.Map<TDestMap>(Create(data));
+			OnCreated(new RepositoryEventArgs<TEntity>(ee));
 
-        #region ASYNC
+			return ee.Entity;
+		}
 
-        //public ValueTask<EntityEntry<T>> CreateAsync(T entity) => _context.Set<T>().AddAsync(entity);
+		/// <summary>
+		/// Using <see cref="AutoMapper"/> to create <see cref="TEntity"/> resource
+		/// </summary>
+		/// <param name="data">An <see cref="object"/> mappable to <see cref="TEntity"/></param>
+		public virtual TEntity Create(object data) => Set.Add(_mapper.Map<TEntity>(data)).Entity;
 
-        //public async ValueTask<MAP> CreateAsync<MAP>(T entity) => _mapper.Map<MAP>((await CreateAsync(entity).ConfigureAwait(false)).Entity);
+		/// <summary>
+		/// Create a new entity from a dto and returns a dto using <see cref="AutoMapper"/>
+		/// </summary>
+		/// <typeparam name="TDestMap"></typeparam>
+		/// <param name="data"></param>
+		public virtual TDestMap Create<TDestMap>(object data) => _mapper.Map<TDestMap>(Create(data));
 
-        //public async ValueTask<MAP> CreateAsync<MAP>(object data) => _mapper.Map<MAP>((await CreateAsync<T>(data).ConfigureAwait(false)));
+		#region ASYNC
 
-        #endregion ASYNC
+		//public ValueTask<EntityEntry<TEntity>> CreateAsync(TEntity entity) => _context.Set<TEntity>().AddAsync(entity);
 
-        #endregion CREATE
+		//public async ValueTask<MAP> CreateAsync<MAP>(T entity) => _mapper.Map<MAP>((await CreateAsync(entity).ConfigureAwait(false)).Entity);
 
-        #region RETRIEVE
+		//public async ValueTask<MAP> CreateAsync<MAP>(object data) => _mapper.Map<MAP>((await CreateAsync<T>(data).ConfigureAwait(false)));
 
-        // nothing here..
+		#endregion ASYNC
 
-        #endregion RETRIEVE
+		#endregion CREATE
 
-        #region UPDATE
+		#region RETRIEVE
 
-        public virtual TEntity Update(object data) => Set.Update(_mapper.Map<TEntity>(data)).Entity;
+		// nothing here..
 
-        public virtual TEntity Update(TEntity entity)
-        {
-            var ee = Set.Update(entity);
+		#endregion RETRIEVE
 
-            OnUpdated(new RepositoryEventArgs<TEntity>(ee, entity));
+		#region UPDATE
 
-            return ee.Entity;
-        }
+		public virtual TEntity Update(object data) => Set.Update(_mapper.Map<TEntity>(data)).Entity;
 
-        public virtual TDestMap Update<TDestMap>(TEntity data) => _mapper.Map<TDestMap>(Update(data));
+		public virtual TEntity Update(TEntity entity)
+		{
+			var ee = Set.Update(entity);
 
-        #endregion UPDATE
+			OnUpdated(new RepositoryEventArgs<TEntity>(ee, entity));
 
-        #region DELETE
+			return ee.Entity;
+		}
 
-        public virtual TEntity Delete(TEntity entity)
-        {
-            Set.Attach(entity);
-            var ee = Set.Remove(entity);
+		public virtual TDestMap Update<TDestMap>(TEntity data) => _mapper.Map<TDestMap>(Update(data));
 
-            OnDeleted(new RepositoryEventArgs<TEntity>(ee, entity));
+		#endregion UPDATE
 
-            return ee.Entity;
-        }
+		#region DELETE
 
-        public virtual void DeleteRange(IEnumerable<TEntity> entities)
-        {
-            Set.AttachRange(entities);
-            Set.RemoveRange(entities);
-            entities.AsParallel().ForAll(e => OnDeleted(new RepositoryEventArgs<TEntity>(e)));
-        }
+		public virtual TEntity Delete(TEntity entity)
+		{
+			Set.Attach(entity);
+			var ee = Set.Remove(entity);
 
-        #endregion DELETE
+			OnDeleted(new RepositoryEventArgs<TEntity>(ee, entity));
 
-        public IQueryable<TDestMap> ProjectTo<TDestMap>() => Set.ProjectTo<TDestMap>(_mapper.ConfigurationProvider);
+			return ee.Entity;
+		}
 
-        // toto extension with parameters and wrap? no you cant lol
+		public virtual void DeleteRange(IEnumerable<TEntity> entities)
+		{
+			Set.AttachRange(entities);
+			Set.RemoveRange(entities);
+			entities.AsParallel().ForAll(e => OnDeleted(new RepositoryEventArgs<TEntity>(e)));
+		}
 
-        /// <summary>
-        /// Fucking save data
-        /// </summary>
-        /// <returns></returns>
-        protected Task<int> SaveChangesAsync() => _context.SaveChangesAsync(_cancellationToken);
+		#endregion DELETE
 
-        #region EVENTS
+		public IQueryable<TDestMap> ProjectTo<TDestMap>() => Set.ProjectTo<TDestMap>(_mapper.ConfigurationProvider);
 
-        /// <summary>
-        /// Raise after calling <see cref="RepositoryBase{TEntity}.Create(TEntity)"/>
-        /// </summary>
-        public static event EventHandler<RepositoryEventArgs<TEntity>> Created;
+		/// <inheritdoc cref="DbContext.SaveChanges"/>
+		public Task<int> SaveChangesAsync() => _context.SaveChangesAsync(_cancellationToken);
 
-        /// <summary>
-        /// Raise after calling <see cref="RepositoryBase{TEntity}.Update(TEntity)"/>
-        /// </summary>
-        public static event EventHandler<RepositoryEventArgs<TEntity>> Updated;
+		/// <inheritdoc cref="DbContext.SaveChangesAsync(bool, CancellationToken)"/>
+		public Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess) => _context.SaveChangesAsync(acceptAllChangesOnSuccess, _cancellationToken);
 
-        /// <summary>
-        /// Raise after calling <see cref="RepositoryBase{TEntity}.Delete(TEntity)"/>
-        /// </summary>
-        public static event EventHandler<RepositoryEventArgs<TEntity>> Deleted;
+		#region EVENTS
 
-        protected virtual void OnCreated(RepositoryEventArgs<TEntity> e) => Created?.Invoke(this, e);
+		/// <summary>
+		/// Raise after calling <see cref="RepositoryBase{TEntity}.Create(TEntity)"/>
+		/// </summary>
+		public static event EventHandler<RepositoryEventArgs<TEntity>> Created;
 
-        protected virtual void OnUpdated(RepositoryEventArgs<TEntity> e) => Updated?.Invoke(this, e);
+		/// <summary>
+		/// Raise after calling <see cref="RepositoryBase{TEntity}.Update(TEntity)"/>
+		/// </summary>
+		public static event EventHandler<RepositoryEventArgs<TEntity>> Updated;
 
-        protected virtual void OnDeleted(RepositoryEventArgs<TEntity> e) => Deleted?.Invoke(this, e);
+		/// <summary>
+		/// Raise after calling <see cref="RepositoryBase{TEntity}.Delete(TEntity)"/>
+		/// </summary>
+		public static event EventHandler<RepositoryEventArgs<TEntity>> Deleted;
 
-        #endregion EVENTS
-    }
+		protected virtual void OnCreated(RepositoryEventArgs<TEntity> e) => Created?.Invoke(this, e);
+
+		protected virtual void OnUpdated(RepositoryEventArgs<TEntity> e) => Updated?.Invoke(this, e);
+
+		protected virtual void OnDeleted(RepositoryEventArgs<TEntity> e) => Deleted?.Invoke(this, e);
+
+		#endregion EVENTS
+	}
 }

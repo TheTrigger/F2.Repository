@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.Repository.Demo", "Oib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oibi.Repository.Demo.Models", "Oibi.Repository.Demo.Models\Oibi.Repository.Demo.Models.csproj", "{6E346C0C-DF94-44DE-BCC8-D4A182B4D029}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oibi.Repository.Demo.GraphQl", "Oibi.Repository.Demo.GraphQl\Oibi.Repository.Demo.GraphQl.csproj", "{83A2037D-B921-4DEF-A186-24DC98B47A60}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{6E346C0C-DF94-44DE-BCC8-D4A182B4D029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E346C0C-DF94-44DE-BCC8-D4A182B4D029}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E346C0C-DF94-44DE-BCC8-D4A182B4D029}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83A2037D-B921-4DEF-A186-24DC98B47A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83A2037D-B921-4DEF-A186-24DC98B47A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83A2037D-B921-4DEF-A186-24DC98B47A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83A2037D-B921-4DEF-A186-24DC98B47A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

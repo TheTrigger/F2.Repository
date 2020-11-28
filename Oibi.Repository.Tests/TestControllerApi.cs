@@ -41,6 +41,7 @@ namespace Oibi.Repository.Tests
         public async Task ToListAsync()
 		{
             var list =  await _authorRepository.ToListAsync();
+            Assert.NotNull(list);
         }
     }
 }

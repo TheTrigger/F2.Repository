@@ -1,48 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Oibi.Repository.Interfaces
 {
-    public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity> where TEntity : notnull
-    {
-        #region CREATE
+	/// <summary>
+	/// Exposes basic CRUD operations.
+	/// <inheritdoc/>
+	/// </summary>
+	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
+	public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity>, IRepository where TEntity : class
+	{
+		/// <summary>
+		/// Create a new <typeparamref name="TEntity"/> <paramref name="entity"/>
+		/// </summary>
+		EntityEntry<TEntity> Create([DisallowNull] TEntity entity);
 
-        /// <summary>
-        /// Create a new <see cref="TEntity"/> entity
-        /// </summary>
-        TEntity Create([DisallowNull] TEntity entity);
+		/// <summary>
+		/// Update an <paramref name="entity"/>
+		/// </summary>
+		EntityEntry<TEntity> Update([DisallowNull] TEntity entity);
 
-        /// <summary>
-        /// Create a new <see cref="TEntity"/> entity from a compatible DTO
-        /// </summary>
-        TEntity Create([DisallowNull] object data);
+		/// <summary>
+		/// Delete an <paramref name="entity"/>
+		/// </summary>
+		EntityEntry<TEntity> Remove([DisallowNull] TEntity entity);
 
-        /// <summary>
-        /// Create a new <see cref="TEntity"/> entity from a DTO then mapped to <see cref="MAP"/>
-        /// </summary>
-        MAP Create<MAP>([DisallowNull] object data);
+		/// <summary>
+		/// Delete a collection of <typeparamref name="TEntity"/>
+		/// </summary>
+		void RemoveRange([DisallowNull] params TEntity[] entities);
+	}
 
-        #endregion CREATE
+	public interface IRepository
+	{
 
-        #region UPDATE
-
-        /// <summary>
-        /// Update an entity
-        /// </summary>
-        TEntity Update([DisallowNull] TEntity entity);
-
-        #endregion UPDATE
-
-        #region DELETE
-
-        /// <summary>
-        /// Delete an entity
-        /// </summary>
-        TEntity Delete([DisallowNull] TEntity entity);
-
-        void DeleteRange([DisallowNull] IEnumerable<TEntity> entities);
-
-        #endregion DELETE
-    }
+	}
 }

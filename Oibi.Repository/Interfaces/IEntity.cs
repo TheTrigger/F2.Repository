@@ -1,11 +1,11 @@
 ﻿namespace Oibi.Repository.Interfaces
 {
     /// <summary>
-    /// Interface to use by-id functions
+    /// Entity with primary key
     /// </summary>
-    /// <typeparam name="PK">Your primary key type (<see langword="struct"/>: <see cref="System.Guid"/>, <see cref="int"/>, <see cref="long"/> ...)</typeparam>
-    public interface IEntity<PK> where PK : struct
+    /// <typeparam name="TPrimaryKey">Primary key type (<see langword="struct"/>: <see cref="System.Guid"/>, <see cref="int"/>, <see cref="long"/> ...)</typeparam>
+    public interface IEntity<TPrimaryKey> where TPrimaryKey : struct
     {
-        PK Id { get; set; }
+        TPrimaryKey Id { get; set; }
     }
 }

@@ -1,30 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Oibi.Repository.Interfaces
 {
-    public interface IRepositoryEntity<T, PK> : IRepository<T> where T : class
-    {
-        T Retrieve(PK id);
+	/// <summary>
+	/// <inheritdoc/>
+	/// </summary>
+	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
+	/// <typeparam name="TPrimaryKey">Primary key type</typeparam>
+	public interface IRepositoryEntity<TEntity, TPrimaryKey> : IRepository<TEntity>
+		where TPrimaryKey : struct
+		where TEntity : class
+	{
+		TEntity Retrieve(TPrimaryKey id);
 
-        #region UPDATE
+		TEntity Update(TPrimaryKey id, [DisallowNull] TEntity entity);
 
-        T Update(PK id, [NotNull] T entity);
+		TEntity Delete(TPrimaryKey id);
 
-        T Update(PK id, [NotNull] object data);
-
-        MAP Update<MAP>(PK id, [NotNull] T data);
-
-        MAP Update<MAP>(PK id, [NotNull] object data);
-
-        #endregion UPDATE
-
-        #region DELETE
-
-        T Delete(PK id);
-
-        void DeleteRange(IEnumerable<PK> ids);
-
-        #endregion DELETE
-    }
+		void DeleteRange(params TPrimaryKey[] ids);
+	}
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oibi.Repository.Interfaces;
 using System;
 using System.Collections;
@@ -9,20 +10,17 @@ using System.Threading;
 
 namespace Oibi.Repository.Abstracts
 {
-	public abstract partial class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, new()
+	public abstract partial class RepositoryBase<TEntity> : IRepository<TEntity>
+		where TEntity : class, new()
 	{
 		protected readonly DbContext _context;
 
-		private DbSet<TEntity> _set;
+		protected DbSet<TEntity> Set { get; }
 
-		/// <summary>
-		/// TODO: make protected
-		/// </summary>
-		public DbSet<TEntity> Set => _set ??= _context.Set<TEntity>();
-
-		protected RepositoryBase(DbContext repositoryContext)
+		protected RepositoryBase(DbContext dbContext)
 		{
-			_context = repositoryContext;
+			_context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+			Set = _context.Set<TEntity>();
 		}
 
 		/// <summary>
@@ -30,26 +28,27 @@ namespace Oibi.Repository.Abstracts
 		/// </summary>
 		/// <param name="entity"></param>
 		/// <returns></returns>
-		public virtual TEntity Create(TEntity entity)
+		public virtual EntityEntry<TEntity> Create(TEntity entity) => Set.Add(entity);
+
+		/// <summary>
+		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.Update(TEntity)"/>
+		/// </summary>
+		public virtual EntityEntry<TEntity> Update(TEntity entity)
 		{
-			var ee = Set.Add(entity);
-			return ee.Entity;
+			return Set.Update(entity);
 		}
 
-		public virtual TEntity Update(TEntity entity)
+		/// <summary>
+		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.Remove(TEntity)"/>
+		/// </summary>
+		public virtual EntityEntry<TEntity> Remove(TEntity entity)
 		{
-			var ee = Set.Update(entity);
-			return ee.Entity;
+			if (_context.Entry(entity).State == EntityState.Detached)
+				Set.Attach(entity);
+			return Set.Remove(entity);
 		}
 
-		public virtual TEntity Delete(TEntity entity)
-		{
-			Set.Attach(entity);
-			var ee = Set.Remove(entity);
-			return ee.Entity;
-		}
-
-		public virtual void DeleteRange(params TEntity[] entities)
+		public virtual void RemoveRange(params TEntity[] entities)
 		{
 			Set.AttachRange(entities);
 			Set.RemoveRange(entities);
@@ -58,7 +57,7 @@ namespace Oibi.Repository.Abstracts
 		#region AS QUERYABLE
 
 		/// <summary>
-		/// <inheritdoc/>
+		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.AsQueryable"/>
 		/// </summary>
 		protected IQueryable<TEntity> Queryable => Set.AsQueryable();
 

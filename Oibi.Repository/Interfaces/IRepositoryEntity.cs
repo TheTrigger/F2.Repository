@@ -2,6 +2,11 @@
 
 namespace Oibi.Repository.Interfaces
 {
+	/// <summary>
+	/// <inheritdoc/>
+	/// </summary>
+	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
+	/// <typeparam name="TPrimaryKey">Primary key type</typeparam>
 	public interface IRepositoryEntity<TEntity, TPrimaryKey> : IRepository<TEntity>
 		where TPrimaryKey : struct
 		where TEntity : class

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oibi.Repository.Interfaces;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Oibi.Repository.Abstracts
 		where TEntity : class, IEntity<TPrimaryKey>, new()
 		where TPrimaryKey : struct
 	{
-		protected RepositoryEntityBase(DbContext repositoryContext) : base(repositoryContext)
+		protected RepositoryEntityBase(DbContext dbContext) : base(dbContext)
 		{
 		}
 
@@ -18,18 +19,18 @@ namespace Oibi.Repository.Abstracts
 		/// <param name="id">Primary Key</param>
 		public virtual TEntity Retrieve(TPrimaryKey id) => Set.Single(s => s.Id.Equals(id));
 
-		public virtual TEntity Update(TPrimaryKey id, TEntity entity)
+		public virtual EntityEntry<TEntity> Update(TPrimaryKey id, TEntity entity)
 		{
 			entity.Id = id;
 			return Update(entity);
 		}
 
-		public virtual TEntity Delete(TPrimaryKey id)
+		public virtual EntityEntry<TEntity> Delete(TPrimaryKey id)
 		{
 			var entity = new TEntity { Id = id };
-
 			Set.Attach(entity);
-			return Set.Remove(entity).Entity;
+
+			return Set.Remove(entity);
 		}
 
 		public virtual void DeleteRange(params TPrimaryKey[] ids)

@@ -1,29 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Oibi.Repository.Interfaces
 {
-	public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity> where TEntity : notnull
+	/// <summary>
+	/// Exposes basic CRUD operations.
+	/// <inheritdoc/>
+	/// </summary>
+	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
+	public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity>, IRepository where TEntity : class
 	{
 		/// <summary>
 		/// Create a new <typeparamref name="TEntity"/> <paramref name="entity"/>
 		/// </summary>
-		TEntity Create([DisallowNull] TEntity entity);
+		EntityEntry<TEntity> Create([DisallowNull] TEntity entity);
 
 		/// <summary>
-		/// Update an entity
+		/// Update an <paramref name="entity"/>
 		/// </summary>
-		TEntity Update([DisallowNull] TEntity entity);
+		EntityEntry<TEntity> Update([DisallowNull] TEntity entity);
 
 		/// <summary>
-		/// Delete an entity
+		/// Delete an <paramref name="entity"/>
 		/// </summary>
-		TEntity Delete([DisallowNull] TEntity entity);
+		EntityEntry<TEntity> Remove([DisallowNull] TEntity entity);
 
 		/// <summary>
 		/// Delete a collection of <typeparamref name="TEntity"/>
 		/// </summary>
-		void DeleteRange([DisallowNull] params TEntity[] entities);
+		void RemoveRange([DisallowNull] params TEntity[] entities);
+	}
+
+	public interface IRepository
+	{
+
 	}
 }

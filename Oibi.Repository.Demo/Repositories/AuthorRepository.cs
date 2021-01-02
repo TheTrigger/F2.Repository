@@ -9,7 +9,7 @@ namespace Oibi.Repository.Demo.Repositories
 {
     public class AuthorRepository : GenericEntityRepository<Author>
     {
-        public AuthorRepository(LibraryContext repositoryContext, IMapper mapper) : base(repositoryContext, mapper)
+        public AuthorRepository(LibraryContext repositoryContext) : base(repositoryContext)
         {
             _context.Database.EnsureCreated(); // test seeding purpose
         }
@@ -24,10 +24,7 @@ namespace Oibi.Repository.Demo.Repositories
         /// </summary>
         public IEnumerable<TDestMap> GetAuthorsAndBooks<TDestMap>()
         {
-            var query = this.Include(i => i.BookAuthors).ThenInclude(i => i.Book)
-                .ProjectTo<TDestMap>(_mapper.ConfigurationProvider);
-
-            return _mapper.Map<IEnumerable<TDestMap>>(query);
+            return default;
         }
     }
 }

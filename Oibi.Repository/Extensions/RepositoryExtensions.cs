@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Oibi.Repository.Interfaces;
 using System.Linq;
-using Oibi.Repository.Abstracts;
 
 namespace Oibi.Repository.Extensions
 {

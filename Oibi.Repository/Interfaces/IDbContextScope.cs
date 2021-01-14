@@ -9,9 +9,9 @@ namespace Oibi.Repository.Interfaces
 	public interface IDbContextScope
 	{
 		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(CancellationToken)"/>
-		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
 		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(bool, CancellationToken)"/>
-		Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken);
+		Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
 	}
 }

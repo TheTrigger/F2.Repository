@@ -25,7 +25,7 @@ namespace Oibi.Repository.Abstracts
 		/// </summary>
 		/// <param name="cancellationToken"><inheritdoc/></param>
 		/// <returns><inheritdoc/></returns>
-		public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken) => _context.SaveChangesAsync(cancellationToken);
+		public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => _context.SaveChangesAsync(cancellationToken);
 
 		/// <summary>
 		/// <inheritdoc/>

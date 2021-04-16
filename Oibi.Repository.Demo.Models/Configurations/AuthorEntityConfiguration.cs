@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Oibi.Repository.Extensions;
+using System;
 
 namespace Oibi.Repository.Demo.Models.Configurations
 {
@@ -12,6 +13,10 @@ namespace Oibi.Repository.Demo.Models.Configurations
 			builder.UseTimestampedProperty();
 
 			// builder.HasMany(s => s.Books).WithMany(s => s.Authors);
+
+			// There are no triggered ValueGenerator at migration step, no way ...
+
+			builder.HasData(new Author { Id = Guid.NewGuid(), Name = "From Seeding", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow });
 		}
 	}
 }

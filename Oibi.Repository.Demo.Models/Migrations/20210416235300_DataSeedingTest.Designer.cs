@@ -10,8 +10,8 @@ using Oibi.Repository.Demo.Models;
 namespace Oibi.Repository.Demo.Models.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20210416225708_Initial")]
-    partial class Initial
+    [Migration("20210416235300_DataSeedingTest")]
+    partial class DataSeedingTest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,15 @@ namespace Oibi.Repository.Demo.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ac8fab65-6ba2-4a2d-9789-645d02e8b54b"),
+                            CreatedAt = new DateTime(2021, 4, 16, 23, 53, 0, 579, DateTimeKind.Utc).AddTicks(7484),
+                            Name = "From Seeding",
+                            UpdatedAt = new DateTime(2021, 4, 16, 23, 53, 0, 579, DateTimeKind.Utc).AddTicks(7876)
+                        });
                 });
 
             modelBuilder.Entity("Oibi.Repository.Demo.Models.Book", b =>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oibi.Repository.Demo.Models;
 
 namespace Oibi.Repository.Demo.Models.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20210416232425_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,15 +56,6 @@ namespace Oibi.Repository.Demo.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ac8fab65-6ba2-4a2d-9789-645d02e8b54b"),
-                            CreatedAt = new DateTime(2021, 4, 16, 23, 53, 0, 579, DateTimeKind.Utc).AddTicks(7484),
-                            Name = "From Seeding",
-                            UpdatedAt = new DateTime(2021, 4, 16, 23, 53, 0, 579, DateTimeKind.Utc).AddTicks(7876)
-                        });
                 });
 
             modelBuilder.Entity("Oibi.Repository.Demo.Models.Book", b =>

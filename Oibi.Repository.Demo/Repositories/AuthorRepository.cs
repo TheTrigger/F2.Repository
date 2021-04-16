@@ -11,7 +11,6 @@ namespace Oibi.Repository.Demo.Repositories
     {
         public AuthorRepository(LibraryContext repositoryContext) : base(repositoryContext)
         {
-            _context.Database.EnsureCreated(); // test seeding purpose
         }
 
         /// <summary>

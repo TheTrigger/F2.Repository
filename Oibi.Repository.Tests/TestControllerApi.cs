@@ -5,6 +5,7 @@ using Oibi.Repository.Demo.Repositories;
 using Oibi.TestHelper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,7 +32,7 @@ namespace Oibi.Repository.Tests
 			_libraryScope.AuthorRepository.Create(a2);
 
 			var affectedRows = await _libraryScope.SaveChangesAsync();
-			Assert.Equal(2, affectedRows);
+			Assert.NotEqual(default, affectedRows);
 
 			var b1 = new Book { Title = "Hamlet", Isbn = "1234567890123" };
 			var b2 = new Book { Title = "King Lear", Isbn = "0987654321045" };
@@ -46,18 +47,12 @@ namespace Oibi.Repository.Tests
 
 			affectedRows = await _libraryScope.SaveChangesAsync();
 			Assert.NotEqual(default, affectedRows);
-		}
 
-		[Fact]
-		public async Task TestLibrary()
-		{
-			var a1 = new Author { Name = "William Shakespeare" };
-			var entity = _libraryScope.AuthorRepository.Create(a1);
-			var results = await _libraryScope.AuthorRepository.Include(i => i.Books)
-				.ToListAsync();
+			var results = await _libraryScope.AuthorRepository
+												.Include(i => i.Books)
+											.ToListAsync();
 
 			Assert.NotEmpty(results);
-
 			foreach (var author in results)
 			{
 				Assert.NotEmpty(author.Name);
@@ -68,6 +63,11 @@ namespace Oibi.Repository.Tests
 		[Fact]
 		public async Task ToListAsync()
 		{
+			var b1 = new Book { Title = "Hamlet", Isbn = "1234567890123" };
+			_libraryScope.BookRepository.Create(b1);
+			var affectedRows = await _libraryScope.SaveChangesAsync();
+			Assert.Equal(1, affectedRows);
+
 			var results = await _libraryScope.BookRepository.ToListAsync();
 			Assert.NotNull(results);
 		}

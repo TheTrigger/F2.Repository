@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -19,7 +21,7 @@
     <PackageTags>repository, pattern, aspnetcore, efcore, automapper</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>5.0.2</Version>
+    <Version>5.0.5</Version>
     <Company>oibi.dev</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

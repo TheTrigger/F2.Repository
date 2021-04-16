@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,21 +22,21 @@ namespace Oibi.Repository.Demo
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			// package Microsoft.EntityFrameworkCore.InMemory
-			// services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
-			//services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration.GetConnectionString("Demo")));
-			services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext)));
+			
+			//services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext))); // package Microsoft.EntityFrameworkCore.InMemory
+			services.AddDbContext<LibraryContext>(config => config.UseSqlServer(_configuration.GetConnectionString("Demo")));
+			services.AddDatabaseScope<LibraryDbScope>();
 
 			// https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
 			services.AddAutoMapper(typeof(MappingProfile));
 			services.AddControllers();
-
-			services.AddDatabaseScope<LibraryDbScope>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			//app.UseDatabaseMigration<LibraryContext>(); // relational databases only
+
 			app.UseRouting();
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 		}

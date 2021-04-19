@@ -5,7 +5,6 @@ using Oibi.Repository.Demo.Repositories;
 using Oibi.TestHelper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,8 +27,10 @@ namespace Oibi.Repository.Tests
 			var a1 = new Author { Name = "William Shakespeare" };
 			var a2 = new Author { Name = "Oibi.dev" };
 
-			var entity = _libraryScope.AuthorRepository.Create(a1);
+			var _ = _libraryScope.AuthorRepository.Create(a1);
 			_libraryScope.AuthorRepository.Create(a2);
+
+		
 
 			var affectedRows = await _libraryScope.SaveChangesAsync();
 			Assert.NotEqual(Guid.Empty, a1.Id);
@@ -43,8 +44,8 @@ namespace Oibi.Repository.Tests
 			_libraryScope.BookRepository.Create(b2);
 			_libraryScope.BookRepository.Create(b3);
 
-			a1.Books = new List<Book>() { b1, b2 };
-			a2.Books = new List<Book>() { b2, b3 };
+			a1.Books = new List<Book> { b1, b2 };
+			a2.Books = new List<Book> { b2, b3 };
 
 			affectedRows = await _libraryScope.SaveChangesAsync();
 			Assert.NotEqual(default, affectedRows);

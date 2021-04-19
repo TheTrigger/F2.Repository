@@ -15,6 +15,10 @@ namespace Oibi.Repository.Abstracts
 		/// </summary>
 		protected readonly TDbContext _context;
 
+		/// <summary>
+		/// <inheritdoc cref="DbContext()"/>
+		/// </summary>
+		/// <param name="context"><inheritdoc/></param>
 		protected DbContextScope(TDbContext context)
 		{
 			_context = context;

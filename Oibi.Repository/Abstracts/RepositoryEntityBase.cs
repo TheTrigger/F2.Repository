@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Oibi.Repository.Abstracts
 {
-	public abstract partial class RepositoryEntityBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity>
+	public abstract class RepositoryEntityBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity>
 		where TEntity : class, IEntity<TPrimaryKey>, new()
 		where TPrimaryKey : struct
 	{

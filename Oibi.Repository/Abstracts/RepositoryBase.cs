@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Oibi.Repository.Abstracts
 {
-	public abstract partial class RepositoryBase<TEntity> : IRepository<TEntity>
+	public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 		where TEntity : class, new()
 	{
 		protected readonly DbContext _context;
@@ -44,7 +44,10 @@ namespace Oibi.Repository.Abstracts
 		public virtual EntityEntry<TEntity> Remove(TEntity entity)
 		{
 			if (_context.Entry(entity).State == EntityState.Detached)
+			{
 				Set.Attach(entity);
+			}
+
 			return Set.Remove(entity);
 		}
 

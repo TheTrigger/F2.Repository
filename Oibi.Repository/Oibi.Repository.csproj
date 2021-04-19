@@ -18,7 +18,7 @@
     <PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
-    <PackageTags>repository, pattern, aspnetcore, efcore, automapper</PackageTags>
+    <PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
     <Version>5.0.5.1</Version>

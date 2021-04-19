@@ -32,6 +32,7 @@ namespace Oibi.Repository.Tests
 			_libraryScope.AuthorRepository.Create(a2);
 
 			var affectedRows = await _libraryScope.SaveChangesAsync();
+			Assert.NotEqual(Guid.Empty, a1.Id);
 			Assert.NotEqual(default, affectedRows);
 
 			var b1 = new Book { Title = "Hamlet", Isbn = "1234567890123" };

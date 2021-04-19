@@ -27,10 +27,8 @@ namespace Oibi.Repository.Tests
 			var a1 = new Author { Name = "William Shakespeare" };
 			var a2 = new Author { Name = "Oibi.dev" };
 
-			var _ = _libraryScope.AuthorRepository.Create(a1);
+			_libraryScope.AuthorRepository.Create(a1);
 			_libraryScope.AuthorRepository.Create(a2);
-
-		
 
 			var affectedRows = await _libraryScope.SaveChangesAsync();
 			Assert.NotEqual(Guid.Empty, a1.Id);

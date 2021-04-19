@@ -20,7 +20,9 @@ namespace Oibi.Repository.Extensions
 
 			services.AddScoped<TDbContextScope>();
 			foreach (var repoType in repositories)
+			{
 				services.AddScoped(repoType.PropertyType);
+			}
 
 			return services;
 		}

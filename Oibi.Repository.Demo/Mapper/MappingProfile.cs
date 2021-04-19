@@ -14,10 +14,6 @@ namespace Oibi.Repository.Demo.Mapper
             CreateMap<long, TimeSpan>().ConstructUsing(x => TimeSpan.FromTicks(x));
             CreateMap<TimeSpan, long>().ConstructUsing(x => x.Ticks);
 
-            // map many-to-many to one-to-many
-            //CreateMap<Author, AuthorDto>()
-            //    .ForMember(dto => dto.Books, opt => opt.MapFrom(x => x.BookAuthors.Select(y => y.Book)));
-
             CreateMap<Book, BookDto>();
         }
     }

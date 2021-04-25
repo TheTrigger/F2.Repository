@@ -21,6 +21,7 @@ namespace Oibi.Repository.Abstracts
 		{
 			_context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 			Set = _context.Set<TEntity>();
+			_queryableSet = Set.AsQueryable();
 		}
 
 		/// <summary>
@@ -62,34 +63,34 @@ namespace Oibi.Repository.Abstracts
 		/// <summary>
 		/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.AsQueryable"/>
 		/// </summary>
-		protected IQueryable<TEntity> Queryable => Set.AsQueryable();
+		protected readonly IQueryable<TEntity> _queryableSet;
 
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-		public Type ElementType => typeof(TEntity);
+		public Type ElementType { get; } = typeof(TEntity);
 
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-		public Expression Expression => Queryable.Expression;
+		public Expression Expression => _queryableSet.Expression;
 
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-		public IQueryProvider Provider => Queryable.Provider;
-
-		/// <summary>
-		/// <inheritdoc/>
-		/// </summary>
-		/// <returns><inheritdoc/></returns>
-		public IEnumerator GetEnumerator() => Queryable.GetEnumerator();
+		public IQueryProvider Provider => _queryableSet.Provider;
 
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
 		/// <returns><inheritdoc/></returns>
-		IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => Queryable.GetEnumerator();
+		public IEnumerator GetEnumerator() => _queryableSet.GetEnumerator();
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		/// <returns><inheritdoc/></returns>
+		IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => _queryableSet.GetEnumerator();
 
 		/// <summary>
 		/// <inheritdoc/>

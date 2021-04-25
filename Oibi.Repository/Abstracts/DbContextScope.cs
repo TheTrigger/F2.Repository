@@ -37,7 +37,7 @@ namespace Oibi.Repository.Abstracts
 		/// <param name="acceptAllChangesOnSuccess"><inheritdoc/></param>
 		/// <param name="cancellationToken"><inheritdoc/></param>
 		/// <returns><inheritdoc/></returns>
-		public virtual Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+		public virtual Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
 			=> _context.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 	}
 }

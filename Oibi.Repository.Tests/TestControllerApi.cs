@@ -71,5 +71,18 @@ namespace Oibi.Repository.Tests
 			var results = await _libraryScope.BookRepository.ToListAsync();
 			Assert.NotNull(results);
 		}
+
+		[Fact]
+		public async Task CanCreateAndDelete()
+		{
+			var a1 = new Author { Name = "William Shakespeare" };
+			_libraryScope.AuthorRepository.Create(a1);
+			await _libraryScope.SaveChangesAsync(default);
+
+			_libraryScope.AuthorRepository.RemoveRange(a1);
+			await _libraryScope.SaveChangesAsync(default);
+
+			Assert.NotEqual(Guid.Empty, a1.Id);
+		}
 	}
 }

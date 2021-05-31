@@ -7,7 +7,8 @@ namespace Oibi.Repository.Interfaces
 {
 	/// <summary>
 	/// Exposes basic CRUD operations.
-	/// <inheritdoc/>
+	/// <inheritdoc cref="IAsyncEnumerable{T}"/>
+	/// <inheritdoc cref="IQueryable{T}"/>
 	/// </summary>
 	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
 	public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity>, IRepository where TEntity : class

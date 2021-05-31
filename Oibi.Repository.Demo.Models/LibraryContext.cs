@@ -27,8 +27,9 @@ namespace Oibi.Repository.Demo.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new BookEntityConfiguration());
-			modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
+			modelBuilder.ApplyAllConfigurations<LibraryContext>();
+			//modelBuilder.ApplyConfiguration(new BookEntityConfiguration());
+			//modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
 		}
 	}
 }

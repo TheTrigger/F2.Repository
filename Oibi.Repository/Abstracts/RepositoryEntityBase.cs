@@ -24,21 +24,5 @@ namespace Oibi.Repository.Abstracts
 			entity.Id = id;
 			return Update(entity);
 		}
-
-		public virtual EntityEntry<TEntity> Delete(TPrimaryKey id)
-		{
-			var entity = new TEntity { Id = id };
-			Set.Attach(entity);
-
-			return Set.Remove(entity);
-		}
-
-		public virtual void DeleteRange(params TPrimaryKey[] ids)
-		{
-			var collection = ids.Select(id => new TEntity { Id = id });
-
-			Set.AttachRange(collection);
-			Set.RemoveRange(collection);
-		}
 	}
 }

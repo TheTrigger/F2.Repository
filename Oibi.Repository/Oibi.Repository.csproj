@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Meziantou.Analyzer" Version="1.0.663">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -21,7 +25,7 @@
     <PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>5.0.5.1</Version>
+    <Version>5.0.6</Version>
     <Company>oibi.dev</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

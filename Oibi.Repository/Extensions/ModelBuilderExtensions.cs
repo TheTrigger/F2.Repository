@@ -9,7 +9,9 @@ namespace Oibi.Repository.Extensions
 	{
 		/// <summary>
 		/// Auto find and apply all IEntityTypeConfiguration to modelBuilder
+		/// modelBuilder.ApplyConfigurationsFromAssembly(typeof(YourDbContext).Assembly);
 		/// </summary>
+		[Obsolete("See modelBuilder.ApplyConfigurationsFromAssembly")]
 		public static void ApplyAllConfigurations<TDbContext>(this ModelBuilder modelBuilder)
 			where TDbContext : DbContext
 		{

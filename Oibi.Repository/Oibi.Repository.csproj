@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
     <Authors>f.fabrizi91@gmail.com</Authors>
     <Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
   </PropertyGroup>
@@ -25,7 +25,7 @@
     <PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>6.0.0</Version>
+    <Version>6.0.0.1</Version>
     <Company>oibi.dev</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

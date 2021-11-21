@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oibi.Repository.Interfaces;
+using System;
 using System.Linq;
 
 namespace Oibi.Repository.Abstracts
 {
 	public abstract class RepositoryEntityBase<TEntity, TPrimaryKey> : RepositoryBase<TEntity>
 		where TEntity : class, IEntity<TPrimaryKey>, new()
-		where TPrimaryKey : struct
+		where TPrimaryKey : IEquatable<TPrimaryKey>
 	{
 		protected RepositoryEntityBase(DbContext dbContext) : base(dbContext)
 		{

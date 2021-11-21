@@ -13,6 +13,7 @@ namespace Oibi.Repository.Extensions
 		/// <param name="applicationBuilder"></param>
 		public static IApplicationBuilder UseDatabaseMigration<TDbContext>(this IApplicationBuilder applicationBuilder) where TDbContext : DbContext
 		{
+			// UseAutoMigrateDatabase?
 			using var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
 			var context = serviceScope.ServiceProvider.GetService<TDbContext>();
 			context.Database.Migrate();

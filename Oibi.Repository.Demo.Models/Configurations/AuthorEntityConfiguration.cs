@@ -13,7 +13,7 @@ namespace Oibi.Repository.Demo.Models.Configurations
 			builder.UseTimestampedProperty();
 
 			// There are no triggered ValueGenerator at migration step, no way ...
-			builder.HasData(new Author { Id = Guid.NewGuid(), Name = "From Seeding", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow });
+			//builder.HasData(new Author { Id = Guid.NewGuid(), Name = "From Seeding", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow });
 		}
 	}
 }

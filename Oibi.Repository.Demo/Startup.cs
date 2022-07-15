@@ -22,7 +22,6 @@ namespace Oibi.Repository.Demo
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			//services.AddDbContext<LibraryContext>(config => config.UseInMemoryDatabase(nameof(LibraryContext))); // package Microsoft.EntityFrameworkCore.InMemory
 			services.AddDbContext<LibraryContext>(config => config.UseNpgsql(_configuration.GetConnectionString("Demo")));
 			services.AddDatabaseScope<LibraryDbScope>();
 

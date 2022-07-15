@@ -25,7 +25,7 @@
     <PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>6.0.5.0</Version>
+    <Version>6.0.7</Version>
     <Company>oibi.dev</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

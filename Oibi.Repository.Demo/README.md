@@ -13,4 +13,5 @@ docker run -e POSTGRES_USER=develop -e POSTGRES_PASSWORD=develop -p 1440:5432 --
 
 ```sh
 Add-Migration UpgradeNET605 -Project Oibi.Repository.Demo.Models
+Update-Database
 ```

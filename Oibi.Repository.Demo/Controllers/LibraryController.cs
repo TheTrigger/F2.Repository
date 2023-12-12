@@ -19,7 +19,7 @@ namespace Oibi.Repository.Demo.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<AuthorDto> Get()
         {
             var dto = _authorRepository.GetAuthorsAndBooks<AuthorDto>();
 

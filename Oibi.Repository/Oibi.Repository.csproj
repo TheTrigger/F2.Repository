@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<TargetFramework>net7.0</TargetFramework>
-    <Authors>f.fabrizi91@gmail.com</Authors>
-    <Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Authors>f.fabrizi91@gmail.com</Authors>
+		<Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Meziantou.Analyzer" Version="2.0.20">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Meziantou.Analyzer" Version="2.0.120">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+	</ItemGroup>
 
-  <PropertyGroup>
-    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-    <Copyright>f.fabrizi91@gmail.com</Copyright>
-    <PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
-    <PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-    <Version>7.0.4</Version>
-    <Company>oibi.dev</Company>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+		<Copyright>f.fabrizi91@gmail.com</Copyright>
+		<PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
+		<PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
+		<Version>8.0.0</Version>
+		<Company>oibi.dev</Company>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
+	</PropertyGroup>
 
 </Project>

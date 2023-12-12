@@ -22,7 +22,8 @@ namespace Oibi.Repository.Demo
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<LibraryContext>(config => config.UseNpgsql(_configuration.GetConnectionString("Demo")));
+			var connectionString = _configuration.GetConnectionString("Demo");
+            services.AddDbContext<LibraryContext>(config => config.UseNpgsql(connectionString));
 			services.AddDatabaseScope<LibraryDbScope>();
 
 			// https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection

@@ -17,7 +17,7 @@ jobs:
           nuget-api-key: ${{ secrets.NUGET_APIKEY }}
       - uses: actions/setup-dotnet@v2
         with: 
-          dotnet-version: 7.0.*
+          dotnet-version: 8.0.*
 
       - name: Build solution and generate NuGet package
         run: |

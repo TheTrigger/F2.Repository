@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Oibi.Repository.Configurations.Converters;
-using Oibi.Repository.Demo.Models.Configurations.Converters;
 using Oibi.Repository.Extensions;
 
 namespace Oibi.Repository.Demo.Models.Configurations

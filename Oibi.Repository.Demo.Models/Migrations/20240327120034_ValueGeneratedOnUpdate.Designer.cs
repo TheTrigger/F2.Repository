@@ -12,14 +12,15 @@ using Oibi.Repository.Demo.Models;
 namespace Oibi.Repository.Demo.Models.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20220526184533_Initial")]
-    partial class Initial
+    [Migration("20240327120034_ValueGeneratedOnUpdate")]
+    partial class ValueGeneratedOnUpdate
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -45,16 +46,18 @@ namespace Oibi.Repository.Demo.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -67,20 +70,28 @@ namespace Oibi.Repository.Demo.Models.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
+                    b.Property<DateTimeOffset>("ArrivedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Isbn")
                         .HasMaxLength(13)
                         .HasColumnType("character varying(13)");
 
+                    b.Property<DateOnly>("PublishedAt")
+                        .HasColumnType("date");
+
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 

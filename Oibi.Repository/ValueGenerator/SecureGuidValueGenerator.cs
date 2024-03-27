@@ -1,51 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace Oibi.Repository.ValueGenerator
+namespace Oibi.Repository.ValueGenerator;
+
+public class SecureGuidValueGenerator : ValueGenerator<Guid>
 {
-	public class SecureGuidValueGenerator : ValueGenerator<Guid>
-	{
-		public override bool GeneratesTemporaryValues => false;
+    public override bool GeneratesTemporaryValues => false;
 
-		public override Guid Next([NotNullAttribute] EntityEntry entry)
-		{
-			return CreateCryptographicallySecureGuid();
-		}
+    public override Guid Next(EntityEntry entry)
+    {
+        return CreateCryptographicallySecureGuid();
+    }
 
-		private static Guid CreateCryptographicallySecureGuid()
-		{
-			// https://stackoverflow.com/a/50456283/
-			// https://stackoverflow.com/a/59437504/
+    private static Guid CreateCryptographicallySecureGuid()
+    {
+        // Determina l'indice del byte di versione in base all'endianess del sistema
+        int versionByteIndex = BitConverter.IsLittleEndian ? 7 : 6;
 
+        // Ottieni byte randomici crittograficamente sicuri
+        Span<byte> bytes = stackalloc byte[16];
+        RandomNumberGenerator.Fill(bytes);
 
-			// byte indices
-			int versionByteIndex = BitConverter.IsLittleEndian ? 7 : 6;
-			const int variantByteIndex = 8;
+        // Imposta i bit della versione (Version 4)
+        bytes[versionByteIndex] = (byte)((bytes[versionByteIndex] & 0x0F) | 0x40);
 
-			// version mask & shift for `Version 4`
-			const int versionMask = 0x0F;
-			const int versionShift = 0x40;
+        // Imposta i bit della variante (RFC 4122)
+        bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
 
-			// variant mask & shift for `RFC 4122`
-			const int variantMask = 0x3F;
-			const int variantShift = 0x80;
-
-			// get bytes of cryptographically-strong random values
-			// https://stackoverflow.com/a/54132397/
-			Span<byte> bytes = stackalloc byte[16];
-			RandomNumberGenerator.Fill(bytes);
-
-			// Set version bits -- 6th or 7th byte according to Endianness, big or little Endian respectively
-			bytes[versionByteIndex] = (byte)(bytes[versionByteIndex] & versionMask | versionShift);
-
-			// Set variant bits -- 9th byte
-			bytes[variantByteIndex] = (byte)(bytes[variantByteIndex] & variantMask | variantShift);
-
-			// Initialize Guid from the modified random bytes
-			return new Guid(bytes);
-		}
-	}
+        return new Guid(bytes);
+    }
 }

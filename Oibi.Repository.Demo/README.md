@@ -12,6 +12,13 @@ docker run -e POSTGRES_USER=develop -e POSTGRES_PASSWORD=develop -p 1440:5432 --
 
 
 ```sh
-Add-Migration UpgradeNET605 -Project Oibi.Repository.Demo.Models
-Update-Database
+Remove-Migration -Project Oibi.Repository.Demo.Models
+
+
+Add-Migration -Project Oibi.Repository.Demo.Models Reinitialized
+Add-Migration -Project Oibi.Repository.Demo.Models CURRENT_TIMESTAMP
+Add-Migration -Project Oibi.Repository.Demo.Models ValueGeneratedOnUpdate
+
+
+Update-Database 
 ```

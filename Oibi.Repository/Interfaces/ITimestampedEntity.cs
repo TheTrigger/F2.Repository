@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace Oibi.Repository.Interfaces
+namespace Oibi.Repository.Interfaces;
+
+public interface ITimestampedEntity
 {
-	public interface ITimestampedEntity
-	{
-		public DateTime CreatedAt { get; set; }
-		public DateTime UpdatedAt { get; set; }
-	}
+	public DateTimeOffset CreatedAt { get; set; }
+	public DateTimeOffset UpdatedAt { get; set; }
 }

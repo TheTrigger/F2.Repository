@@ -7,26 +7,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Meziantou.Analyzer" Version="2.0.146">
+		<PackageReference Include="Meziantou.Analyzer" Version="2.0.149">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 
 	<PropertyGroup>
 		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-		<Copyright>f.fabrizi91@gmail.com</Copyright>
+		<Copyright>info@fabrizi.software</Copyright>
 		<PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
 		<PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-		<Version>8.0.2.1</Version>
+		<Version>8.0.4</Version>
 		<Company>FABRIZI.SOFTWARE</Company>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

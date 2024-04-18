@@ -12,15 +12,11 @@ public static class EntityTypeBuilderExtensions
     public static EntityTypeBuilder<TEntity> UseTimestampedProperty<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, ITimestampedEntity
     {
         entity.Property(d => d.CreatedAt)
-            .HasConversion<DateTimeOffsetToUtcConverter>()
-            .HasValueGenerator<DateTimeOffsetValueGenerator>()
-            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .ConfigureAsUtcDateTime()
             .ValueGeneratedOnAdd();
 
         entity.Property(d => d.UpdatedAt)
-            .HasConversion<DateTimeOffsetToUtcConverter>()
-            .HasValueGenerator<DateTimeOffsetValueGenerator>()
-            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .ConfigureAsUtcDateTime()
             .ValueGeneratedOnAddOrUpdate();
 
         return entity;
@@ -31,5 +27,13 @@ public static class EntityTypeBuilderExtensions
         entity.Property(d => d.Id).HasValueGenerator<SecureGuidValueGenerator>().ValueGeneratedOnAdd();
 
         return entity;
+    }
+
+    public static PropertyBuilder<DateTimeOffset> ConfigureAsUtcDateTime(this PropertyBuilder<DateTimeOffset> builder)
+    {
+        return builder
+            .HasConversion(new DateTimeOffsetToUtcConverter())
+            .HasValueGenerator<DateTimeOffsetValueGenerator>()
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
     }
 }

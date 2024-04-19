@@ -1,30 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
-using System.Reflection;
+using System.Collections.Generic;
 
 namespace Oibi.Repository.Extensions;
 
 public static class ModelBuilderExtensions
 {
-	/// <summary>
-	/// Auto find and apply all IEntityTypeConfiguration to modelBuilder
-	/// modelBuilder.ApplyConfigurationsFromAssembly(typeof(YourDbContext).Assembly);
-	/// </summary>
-	[Obsolete("See modelBuilder.ApplyConfigurationsFromAssembly")]
-	public static void ApplyAllConfigurations<TDbContext>(this ModelBuilder modelBuilder)
-		where TDbContext : DbContext
-	{
-		var applyConfigurationMethodInfo = modelBuilder.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public)
-			.First(m => m.Name.Equals(nameof(ModelBuilder.ApplyConfiguration), StringComparison.OrdinalIgnoreCase));
+    /// <summary>
+    /// Set <see cref="ConfigureAsUtcDateTime"/> to <see cref="DateTimeOffset"/> and nullable <see cref="DateTimeOffset?"/>
+    /// </summary>
+    public static ModelBuilder UseUtcDateTimeOffset(this ModelBuilder modelBuilder, params Type[] excludedEntityTypes)
+    {
+        var excludedSet = new HashSet<Type>(excludedEntityTypes);
 
-		var ret = typeof(TDbContext).Assembly.GetTypes()
-			.Select(t => (t,
-				i: t.GetInterfaces().FirstOrDefault(i =>
-					i.Name.Equals(typeof(IEntityTypeConfiguration<>).Name, StringComparison.Ordinal))))
-			.Where(it => it.i is not null)
-			.Select(it => (et: it.i.GetGenericArguments()[0], cfgObj: Activator.CreateInstance(it.t)))
-			.Select(it => applyConfigurationMethodInfo.MakeGenericMethod(it.et).Invoke(modelBuilder, new[] { it.cfgObj }))
-		.ToList();
-	}
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (entityType.ClrType is null) continue;
+            if (entityType.HasSharedClrType) continue;
+            if (excludedSet.Contains(entityType.ClrType)) continue;
+
+            modelBuilder.Entity(entityType.ClrType, builder =>
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTimeOffset))
+                    {
+                        var propertyBuilder = builder.Property<DateTimeOffset>(property.Name);
+                        propertyBuilder.ConfigureAsUtcDateTime();
+                    }
+                    else if (property.ClrType == typeof(DateTimeOffset?) && property.IsNullable)
+                    {
+                        var propertyBuilder = builder.Property<DateTimeOffset?>(property.Name);
+                        propertyBuilder.ConfigureAsUtcDateTime();
+                    }
+                }
+            });
+        }
+
+        return modelBuilder;
+    }
 }

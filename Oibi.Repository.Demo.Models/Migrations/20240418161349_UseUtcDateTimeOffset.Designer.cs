@@ -12,15 +12,15 @@ using Oibi.Repository.Demo.Models;
 namespace Oibi.Repository.Demo.Models.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20240327120034_ValueGeneratedOnUpdate")]
-    partial class ValueGeneratedOnUpdate
+    [Migration("20240418161349_UseUtcDateTimeOffset")]
+    partial class UseUtcDateTimeOffset
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -51,6 +51,9 @@ namespace Oibi.Repository.Demo.Models.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<DateTimeOffset>("ExcludedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -71,6 +74,16 @@ namespace Oibi.Repository.Demo.Models.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("ArrivedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTimeOffset>("AuthorBirthdate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTimeOffset?>("BannedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("CreatedAt")

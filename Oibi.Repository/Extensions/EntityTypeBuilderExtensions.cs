@@ -9,16 +9,12 @@ namespace Oibi.Repository.Extensions;
 
 public static class EntityTypeBuilderExtensions
 {
+    private static readonly DateTimeOffsetToUtcConverter _dateTimeOffsetToUtcConverter = new();
+
     public static EntityTypeBuilder<TEntity> UseTimestampedProperty<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, ITimestampedEntity
     {
-        entity.Property(d => d.CreatedAt)
-            .ConfigureAsUtcDateTime()
-            .ValueGeneratedOnAdd();
-
-        entity.Property(d => d.UpdatedAt)
-            .ConfigureAsUtcDateTime()
-            .ValueGeneratedOnAddOrUpdate();
-
+        entity.Property(d => d.CreatedAt).ConfigureAsUtcDateTime().ValueGeneratedOnAdd();
+        entity.Property(d => d.UpdatedAt).ConfigureAsUtcDateTime().ValueGeneratedOnAddOrUpdate();
         return entity;
     }
 
@@ -31,9 +27,14 @@ public static class EntityTypeBuilderExtensions
 
     public static PropertyBuilder<DateTimeOffset> ConfigureAsUtcDateTime(this PropertyBuilder<DateTimeOffset> builder)
     {
-        return builder
-            .HasConversion(new DateTimeOffsetToUtcConverter())
+        return builder.HasConversion(_dateTimeOffsetToUtcConverter)
             .HasValueGenerator<DateTimeOffsetValueGenerator>()
             .HasDefaultValueSql("CURRENT_TIMESTAMP");
+    }
+
+    public static PropertyBuilder<DateTimeOffset?> ConfigureAsUtcDateTime(this PropertyBuilder<DateTimeOffset?> builder)
+    {
+        return builder.HasConversion(_dateTimeOffsetToUtcConverter)
+            .HasValueGenerator<DateTimeOffsetValueGenerator>();
     }
 }

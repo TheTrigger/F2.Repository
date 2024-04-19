@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Oibi.Repository.Extensions;
 
 namespace Oibi.Repository.Demo.Models;
 
@@ -24,8 +25,10 @@ public class LibraryContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+        //modelBuilder.ApplyConfiguration(new BookEntityConfiguration());
+        //modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
 		modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-		//modelBuilder.ApplyConfiguration(new BookEntityConfiguration());
-		//modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
-	}
+
+        modelBuilder.UseUtcDateTimeOffset(typeof(Author));
+    }
 }

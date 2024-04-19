@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Oibi.Repository.Demo;
 using Oibi.Repository.Demo.Models;
 using Oibi.Repository.Demo.Repositories;
-using Oibi.TestHelper;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +27,10 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
     }
 
     [Fact]
-    public async Task TimeZone_Raw()
+    public async Task TimeZone_UTC()
     {
-        var result = await _context.Database.ExecuteSqlRawAsync("SHOW timezone;");
-    
+        var results = await _context.Database.SqlQueryRaw<string>("SHOW timezone;").ToListAsync();
+        Assert.Equal("UTC", results[0]);
     }
 
     [Fact]
@@ -98,5 +96,31 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         // Clean up
         _context.Books.Remove(retrievedBook);
         _context.SaveChanges();
+    }
+
+    [Fact]
+    public async Task Try_DateTimeBorders()
+    {
+        var book = new Book
+        {
+            Title = "Timezone Test Book",
+            Isbn = "1234567890123",
+            ArrivedAt = new DateTimeOffset(DateTime.MaxValue, TimeSpan.Zero),
+        };
+
+        _context.Books.Add(book);
+        await _context.SaveChangesAsync();
+
+
+
+        var book2 = new Book
+        {
+            Title = "Timezone Test Book 2",
+            Isbn = "1234567890120",
+            ArrivedAt = new DateTimeOffset(DateTime.MinValue, TimeSpan.Zero),
+        };
+
+        _context.Books.Add(book2);
+        await _context.SaveChangesAsync();
     }
 }

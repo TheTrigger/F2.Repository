@@ -14,5 +14,8 @@ public class Book : BaseEntity
 	public DateOnly PublishedAt { get; set; }
 	public DateTimeOffset ArrivedAt { get; set; }
 
+	public DateTimeOffset? BannedDate { get; set; }
+	public DateTimeOffset AuthorBirthdate { get; set; }
+
 	public virtual List<Author> Authors { get; set; }
 }

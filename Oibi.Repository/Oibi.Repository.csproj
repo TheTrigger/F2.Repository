@@ -26,7 +26,7 @@
 		<PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-		<Version>8.0.4</Version>
+		<Version>8.0.4.1</Version>
 		<Company>FABRIZI.SOFTWARE</Company>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

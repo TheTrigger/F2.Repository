@@ -8,10 +8,8 @@ namespace Oibi.Repository.Configurations.Converters;
 /// </summary>
 public class DateTimeOffsetToUtcConverter : ValueConverter<DateTimeOffset, DateTimeOffset>
 {
-    public DateTimeOffsetToUtcConverter()
-        : base(
-            convertToProviderExpression: d => d.ToUniversalTime(), // Quando scrivi nel DB, converti in UTC
-            convertFromProviderExpression: d => d) // Quando leggi dal DB, specifica che è UTC
-    {
-    }
+    public DateTimeOffsetToUtcConverter() : base(
+            convertToProviderExpression: d => d.ToUniversalTime(), // Quando scrivi nel DB, converti in UTC - postgres lo fa già
+            convertFromProviderExpression: d => d)
+    { }
 }

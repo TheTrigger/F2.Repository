@@ -1,23 +1,22 @@
-# Oibi.Repository
+# F2.Repository
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/437c96b3e26148528379e0da04d97afd)](https://www.codacy.com/gh/TheTrigger/Oibi.Repository/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TheTrigger/Oibi.Repository&amp;utm_campaign=Badge_Grade)
 
 Simple definitions for repository pattern
 
-- [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) implemented
+- Basic [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) implemented
 - Basic [Context scope](https://mehdi.me/ambient-dbcontext-in-ef6/) (aka ~UnitOfWork)
 - `GenericRepository`,`GenericEntityRepository` with and without `PrimaryKey`
-- Implements `IQueryable`: `_customerRepository.Where(...)`
-- Supports `async`: `_customerRepository.SingleAsync()`
+- Abstracts implement `IQueryable`, example: `_customerRepository.Where(...)`
+- `SecureGuidValueGenerator`, `DateTimeValueGenerator`, `ITimestampedEntity`
 - [By convention, a property named Id or <type name>Id will be configured as the primary key of an entity](https://docs.microsoft.com/it-it/ef/core/modeling/keys#conventions)
-- new `SecureGuidValueGenerator` and `DateTimeValueGenerator` (have to implement `ITimestampedEntity`)
 
 ## Getting started
 
-## 1. Install Nuget package [Oibi.Repository](https://www.nuget.org/packages/Oibi.Repository/)
+## 1. Install Nuget package [F2.Repository](https://www.nuget.org/packages/Oibi.Repository/)
 
 ```sh
-Install-Package Oibi.Repository
+Install-Package F2.Repository
 ```
 
 ## 2. Implement `IEntity<TKey>` on your models
@@ -64,7 +63,7 @@ public class BookEntityConfiguration : IEntityTypeConfiguration<Book>
 `GenericEntityRepository<TEntityType>` or `GenericRepository<TEntityType>` abstracts
 
 ```CSharp
-using Oibi.Repository.Abstracts;
+using F2.Repository.Abstracts;
 
 public class CustomerRepository : GenericEntityRepository<Customer>
 {

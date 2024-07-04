@@ -9,7 +9,7 @@
 		<Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>F2,resository</PackageTags>
-		<Version>8.0.6</Version>
+		<Version>8.0.6.1</Version>
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>

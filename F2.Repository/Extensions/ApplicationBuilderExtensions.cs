@@ -15,7 +15,7 @@ namespace F2.Repository.Extensions
 		{
 			// UseAutoMigrateDatabase?
 			using var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-			var context = serviceScope.ServiceProvider.GetService<TDbContext>();
+			var context = serviceScope.ServiceProvider.GetRequiredService<TDbContext>();
 			context.Database.Migrate();
 
 			return applicationBuilder;

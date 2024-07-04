@@ -7,12 +7,19 @@
 		<Authors>fabrizi.software</Authors>
 		<Copyright>info@fabrizi.software</Copyright>
 		<Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
-		<PackageReadmeFile>..\README.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageTags>F2,resository</PackageTags>
 		<Version>8.0.6</Version>
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Meziantou.Analyzer" Version="2.0.159">

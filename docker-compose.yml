@@ -3,14 +3,9 @@
 # debug database
 # launch Update-Database from vsconsole to migrate the database
 
-version: "3.7"
-
 services:
-
-
-  # MAIN APPLICATION DATABASE
   database_default:
-    image: postgres:14-alpine
+    image: postgres:16-alpine
     ports:
       - 1440:5432
     environment:
@@ -19,8 +14,5 @@ services:
     volumes:
       - database_application_data:/var/lib/postgresql/data
 
-
-
 volumes:
   database_application_data:
-    

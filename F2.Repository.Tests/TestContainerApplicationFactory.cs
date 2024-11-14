@@ -36,20 +36,27 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>, IAsyncLif
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureTestServices(services =>
-        {
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<LibraryContext>));
-            services?.Remove(descriptor);
-            services.AddDbContext<LibraryContext>(options =>
+        base.ConfigureWebHost(builder);
+        builder
+            .ConfigureTestServices(services =>
             {
-                options.UseNpgsql(_applicationDatabase.GetConnectionString(),
-                    npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(LibraryContext).Assembly.FullName))
-                    .EnableSensitiveDataLogging(true)
-                    .EnableDetailedErrors()
-                    ;
+                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<LibraryContext>));
+                services?.Remove(descriptor);
+                services.AddDbContext<LibraryContext>(options =>
+                {
+                    // connection string from container
+                    options.UseNpgsql(_applicationDatabase.GetConnectionString(),
+                        npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(LibraryContext).Assembly.FullName))
+                        .EnableSensitiveDataLogging(true)
+                        .EnableDetailedErrors()
+                        ;
 
-            }, ServiceLifetime.Scoped);
-        });
+                }, ServiceLifetime.Scoped);
+            })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+            })
+        ;
     }
 
     Task IAsyncLifetime.InitializeAsync()

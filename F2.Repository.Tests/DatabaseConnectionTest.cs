@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using F2.Repository.Demo;
 using F2.Repository.Demo.Models;
-using F2.Repository.Demo.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,9 +21,8 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
     {
         _testFixure = testFixure;
         _scope = _testFixure.Server.Services.CreateScope();
-
-        _libraryScope = _scope.ServiceProvider.GetRequiredService<LibraryDbScope>();
         _context = _scope.ServiceProvider.GetRequiredService<LibraryContext>();
+        _libraryScope = _scope.ServiceProvider.GetRequiredService<LibraryDbScope>();
     }
 
     [Fact]

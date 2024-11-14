@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using F2.Repository.Demo.Mapper;
 using F2.Repository.Demo.Models;
-using F2.Repository.Demo.Repositories;
 using F2.Repository.Extensions;
 
 namespace F2.Repository.Demo;

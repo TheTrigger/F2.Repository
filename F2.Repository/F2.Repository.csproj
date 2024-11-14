@@ -1,31 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
 		<Authors>fabrizi.software</Authors>
+		<Company>FABRIZI.SOFTWARE</Company>
 		<Copyright>info@fabrizi.software</Copyright>
 		<Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>F2,resository</PackageTags>
-		<Version>8.0.6.1</Version>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 		<IncludeSymbols>True</IncludeSymbols>
+		<Nullable>enable</Nullable>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>F2, repository, pattern, aspnetcore, efcore, scope</PackageTags>
+		<RepositoryType>git</RepositoryType>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<TargetFramework>net8.0</TargetFramework>
+		<Title>F2.Repository</Title>
+		<UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
+		<Version>8.0.11</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Meziantou.Analyzer" Version="2.0.179">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
@@ -33,28 +39,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="icon.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Update="icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
-
-	<PropertyGroup>
-		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-		<Copyright>info@fabrizi.software</Copyright>
-		<PackageProjectUrl>https://github.com/TheTrigger/Oibi.Repository</PackageProjectUrl>
-		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/TheTrigger/Oibi.Repository</RepositoryUrl>
-		<PackageTags>repository, pattern, aspnetcore, efcore, scope</PackageTags>
-		<PackageReleaseNotes></PackageReleaseNotes>
-		<PackageIconUrl>https://image.flaticon.com/icons/svg/2232/2232243.svg</PackageIconUrl>
-		<Version>8.0.6</Version>
-		<Company>FABRIZI.SOFTWARE</Company>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
-		<Title>F2.Repository</Title>
-		<PackageIcon>icon.png</PackageIcon>
-	</PropertyGroup>
 
 </Project>

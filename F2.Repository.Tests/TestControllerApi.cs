@@ -2,7 +2,6 @@ using F2.Repository.Demo.Models;
 using F2.Repository.Demo.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -40,8 +39,8 @@ namespace F2.Repository.Tests
 			_libraryScope.BookRepository.Create(b2);
 			_libraryScope.BookRepository.Create(b3);
 
-			a1.Books = new List<Book> { b1, b2 };
-			a2.Books = new List<Book> { b2, b3 };
+			a1.Books = [b1, b2];
+			a2.Books = [b2, b3];
 
 			affectedRows = await _libraryScope.SaveChangesAsync();
 			Assert.NotEqual(default, affectedRows);

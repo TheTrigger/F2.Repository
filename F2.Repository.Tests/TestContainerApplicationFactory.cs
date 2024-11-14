@@ -1,19 +1,16 @@
 ﻿using DotNet.Testcontainers.Builders;
 using F2.Repository.Demo;
-using F2.Repository.Demo.Models;
 using F2.Testing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Testcontainers.PostgreSql;
-using Xunit;
 
 namespace F2.Repository.Tests;
 
-public class TestContainerApplicationFactory : ServerFixture<Startup>, IAsyncLifetime
+public class TestContainerApplicationFactory : ServerFixture<Startup>
 {
     private const ushort _port = 5432;
 
@@ -38,37 +35,43 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>, IAsyncLif
     {
         base.ConfigureWebHost(builder);
         builder
-            .ConfigureTestServices(services =>
-            {
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<LibraryContext>));
-                services?.Remove(descriptor);
-                services.AddDbContext<LibraryContext>(options =>
-                {
-                    // connection string from container
-                    options.UseNpgsql(_applicationDatabase.GetConnectionString(),
-                        npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(LibraryContext).Assembly.FullName))
-                        .EnableSensitiveDataLogging(true)
-                        .EnableDetailedErrors()
-                        ;
-
-                }, ServiceLifetime.Scoped);
-            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
+                var newConfigs = new Dictionary<string, string>
+                {
+                    { "ConnectionStrings:Demo", _applicationDatabase.GetConnectionString() }
+                };
+
+                config.AddInMemoryCollection(newConfigs);
             })
+            .ConfigureTestServices(services =>
+            {
+                //var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<LibraryContext>));
+                //services?.Remove(descriptor);
+                //services.AddDbContext<LibraryContext>(options =>
+                //{
+                //    // connection string from container
+                //    options.UseNpgsql(_applicationDatabase.GetConnectionString(),
+                //        npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(LibraryContext).Assembly.FullName))
+                //        .EnableSensitiveDataLogging(true)
+                //        .EnableDetailedErrors()
+                //        ;
+
+                //}, ServiceLifetime.Scoped);
+            })
+
         ;
     }
 
-    Task IAsyncLifetime.InitializeAsync()
+    public override async Task InitializeAsync()
     {
-        return _applicationDatabase.StartAsync();
+        await _applicationDatabase.StartAsync().ConfigureAwait(false);
+        await base.InitializeAsync().ConfigureAwait(false);
     }
 
-
-    async Task IAsyncLifetime.DisposeAsync()
+    public async override ValueTask DisposeAsync()
     {
         await _applicationDatabase.StopAsync().ConfigureAwait(false);
-
         await base.DisposeAsync().ConfigureAwait(false);
     }
 }

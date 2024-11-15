@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
-using System;
 
 namespace F2.Repository.ValueGenerator;
 

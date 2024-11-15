@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using F2.Repository.Interfaces;
-using System.Linq;
+﻿using F2.Repository.Interfaces;
 
 namespace F2.Repository.Extensions
 {
-	public static class RepositoryExtensions
+    public static class RepositoryExtensions
 	{
 		/// <summary>
 		/// Register the current <typeparamref name="TDbContextScope"/> and repositories (from properties) as <see cref="IServiceCollection.AddScoped()"/>

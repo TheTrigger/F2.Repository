@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using F2.Repository.Configurations.Converters;
+﻿using F2.Repository.Configurations.Converters;
 using F2.Repository.Interfaces;
 using F2.Repository.ValueGenerator;
-using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F2.Repository.Extensions;
 

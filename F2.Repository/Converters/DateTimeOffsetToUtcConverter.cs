@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
 
 namespace F2.Repository.Configurations.Converters;
 

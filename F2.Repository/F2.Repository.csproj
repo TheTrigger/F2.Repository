@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<Authors>fabrizi.software</Authors>
@@ -21,7 +21,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Title>F2.Repository</Title>
 		<UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
-		<Version>8.0.11.1</Version>
+		<Version>8.0.11.2</Version>
+		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,7 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />

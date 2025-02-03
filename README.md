@@ -96,3 +96,14 @@ All repositories will automatically registered for DI
 services.AddDatabaseScope<YourDbContext>();
 // ... services.AddDbContext<AutomateContext>(opts => opts.UseSqlServer(_configuration.GetConnectionString("SqlConnection"));
 ```
+
+
+
+# Bonus
+
+```
+Add-Migration -Context LibraryContext -Project F2.Repository.Demo PublisherOneToMany
+Add-Migration -Context LibraryContext -Project F2.Repository.Demo PublisherOneToManyNullable
+
+
+```

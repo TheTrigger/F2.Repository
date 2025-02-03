@@ -21,7 +21,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Title>F2.Repository</Title>
 		<UserSecretsId>320f5e09-36cb-4c5b-8f02-72cbf1003ad1</UserSecretsId>
-		<Version>8.0.11.3</Version>
+		<Version>8.0.12</Version>
 		<OutputType>Library</OutputType>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
@@ -34,9 +34,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.*" />
 	</ItemGroup>
 
 	<ItemGroup>

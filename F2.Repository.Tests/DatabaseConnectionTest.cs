@@ -57,7 +57,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
     [InlineData(0)]  // UTC
     [InlineData(1)]  // CET (Central European Time, UTC+1)
     [InlineData(-8)] // PST (Pacific Standard Time, UTC-8)
-    public void Book_Timestamps_ShouldBeTimeZoneAgnostic(int offsetHours)
+    public async Task Book_Timestamps_ShouldBeTimeZoneAgnostic(int offsetHours)
     {
         // Arrange
         var currentTimeZoneOffset = TimeSpan.FromHours(offsetHours);
@@ -74,7 +74,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
 
         // Act
         _context.Books.Add(book);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         // Clear the tracker to get fresh data from the database
         _context.ChangeTracker.Clear();
@@ -94,7 +94,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
 
         // Clean up
         _context.Books.Remove(retrievedBook);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     [Fact]

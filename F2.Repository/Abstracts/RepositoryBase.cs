@@ -36,16 +36,28 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 	}
 
 	/// <summary>
-	/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.Remove(TEntity)"/>
+    /// Marks multiple entities for deletion in the current context.
+    /// Untracked entities are automatically attached to the context.
 	/// </summary>
-	public virtual EntityEntry<TEntity> Remove(TEntity entity)
+    /// <param name="entities">Array of entities to remove</param>
+    /// <exception cref="ArgumentNullException">When entities array is null</exception>
+    public virtual void RemoveRange(params TEntity[] entities)
 	{
-		if (_context.Entry(entity).State == EntityState.Detached)
+        ArgumentNullException.ThrowIfNull(entities);
+
+        if (!entities.Any())
 		{
-			Set.Attach(entity);
+            return;
 		}
 
-		return Set.Remove(entity);
+        // Filter and attach detached entities
+        var detachedEntities = entities
+            .Where(e => _context.Entry(e).State == EntityState.Detached)
+            .ToArray();
+
+        if (detachedEntities.Any())
+        {
+            Set.AttachRange(detachedEntities);
 	}
 
 	public virtual void RemoveRange(params TEntity[] entities)

@@ -2,6 +2,17 @@
 
 namespace F2.Repository.Extensions;
 
+public static class DatabaseMigrationExtensions
+{
+    public static IServiceCollection AddDatabaseMigration<TContext>(this IServiceCollection services)
+        where TContext : DbContext
+    {
+        services.AddHostedService<HostedDbMigrationService<TContext>>();
+
+        return services;
+    }
+}
+
 public class HostedDbMigrationService<TContext> : IHostedService
     where TContext : DbContext
 {

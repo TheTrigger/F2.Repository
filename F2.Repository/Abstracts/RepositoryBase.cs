@@ -11,7 +11,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 {
 	protected readonly DbContext _context;
 
-	protected DbSet<TEntity> Set { get; }
+	public DbSet<TEntity> Set { get; }
 
 	protected RepositoryBase(DbContext dbContext)
 	{
@@ -20,35 +20,41 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
 		_queryableSet = Set.AsQueryable();
 	}
 
-	/// <summary>
-	/// Create new entity of type <see cref="TEntity"/>
-	/// </summary>
-	/// <param name="entity"></param>
-	/// <returns></returns>
-	public virtual EntityEntry<TEntity> Create(TEntity entity) => Set.Add(entity);
+    /// <summary>
+    /// Marks an entity for deletion in the current context.
+    /// If the entity is in Detached state, it will be attached to the context first.
+    /// </summary>
+    /// <param name="entity">The entity to remove</param>
+    /// <returns>The EntityEntry<TEntity> representing the entity in the context</returns>
+    /// <exception cref="ArgumentNullException">When entity is null</exception>
+    public virtual EntityEntry<TEntity> Remove(TEntity entity)
+    {
+        ArgumentNullException.ThrowIfNull(entity);
 
-	/// <summary>
-	/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.Update(TEntity)"/>
-	/// </summary>
-	public virtual EntityEntry<TEntity> Update(TEntity entity)
-	{
-		return Set.Update(entity);
-	}
+        var entry = _context.Entry(entity);
 
-	/// <summary>
+        if (entry.State == EntityState.Detached)
+        {
+            Set.Attach(entity);
+        }
+
+        return Set.Remove(entity);
+    }
+
+    /// <summary>
     /// Marks multiple entities for deletion in the current context.
     /// Untracked entities are automatically attached to the context.
-	/// </summary>
+    /// </summary>
     /// <param name="entities">Array of entities to remove</param>
     /// <exception cref="ArgumentNullException">When entities array is null</exception>
     public virtual void RemoveRange(params TEntity[] entities)
-	{
+    {
         ArgumentNullException.ThrowIfNull(entities);
 
         if (!entities.Any())
-		{
+        {
             return;
-		}
+        }
 
         // Filter and attach detached entities
         var detachedEntities = entities
@@ -58,20 +64,17 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
         if (detachedEntities.Any())
         {
             Set.AttachRange(detachedEntities);
-	}
+        }
 
-	public virtual void RemoveRange(params TEntity[] entities)
-	{
-		Set.AttachRange(entities);
-		Set.RemoveRange(entities);
-	}
+        Set.RemoveRange(entities);
+    }
 
-	#region AS QUERYABLE
+    #region AS QUERYABLE
 
-	/// <summary>
-	/// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.AsQueryable"/>
-	/// </summary>
-	protected readonly IQueryable<TEntity> _queryableSet;
+    /// <summary>
+    /// <inheritdoc cref="Microsoft.EntityFrameworkCore.DbSet{TEntity}.AsQueryable"/>
+    /// </summary>
+    protected readonly IQueryable<TEntity> _queryableSet;
 
 	/// <summary>
 	/// <inheritdoc/>

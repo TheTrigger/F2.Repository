@@ -21,6 +21,6 @@ public abstract class RepositoryEntityBase<TEntity, TPrimaryKey> : RepositoryBas
 	public virtual EntityEntry<TEntity> Update(TPrimaryKey id, TEntity entity)
 	{
 		entity.Id = id;
-		return Update(entity);
+		return Set.Update(entity);
 	}
 }

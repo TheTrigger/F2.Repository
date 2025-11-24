@@ -1,9 +1,9 @@
-﻿using F2.Repository.Demo;
+﻿
+using F2.Repository.Demo;
 using F2.Repository.Demo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -79,7 +79,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         // Clear the tracker to get fresh data from the database
         _context.ChangeTracker.Clear();
 
-        var retrievedBook = _context.Books.AsNoTracking().FirstOrDefault(b => b.Id == book.Id);
+        var retrievedBook = await _context.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == book.Id);
 
         // Assert
         Assert.NotNull(retrievedBook);

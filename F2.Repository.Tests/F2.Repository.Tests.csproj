@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="F2.Testing" Version="8.0.*" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 		<PackageReference Include="Testcontainers.PostgreSql" Version="4.*" />
 		<PackageReference Include="xunit" Version="2.9.*" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.*">

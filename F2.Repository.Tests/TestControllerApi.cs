@@ -26,8 +26,8 @@ public class TestControllerApi : IClassFixture<TestContainerApplicationFactory>
         var a1 = new Author { Name = "William Shakespeare" };
         var a2 = new Author { Name = "Oibi.dev" };
 
-        _libraryScope.AuthorRepository.Create(a1);
-        _libraryScope.AuthorRepository.Create(a2);
+        await _libraryScope.AuthorRepository.Set.AddAsync(a1);
+        await _libraryScope.AuthorRepository.Set.AddAsync(a2);
 
         var affectedRows = await _libraryScope.SaveChangesAsync();
         Assert.NotEqual(Guid.Empty, a1.Id);
@@ -37,9 +37,9 @@ public class TestControllerApi : IClassFixture<TestContainerApplicationFactory>
         var b2 = new Book { Title = "King Lear", Isbn = "0987654321045" };
         var b3 = new Book { Id = Guid.NewGuid(), Title = "Random Othello w/ no authors" };
 
-        _libraryScope.BookRepository.Create(b1);
-        _libraryScope.BookRepository.Create(b2);
-        _libraryScope.BookRepository.Create(b3);
+        await _libraryScope.BookRepository.Set.AddAsync(b1);
+        await _libraryScope.BookRepository.Set.AddAsync(b2);
+        await _libraryScope.BookRepository.Set.AddAsync(b3);
 
         a1.Books = [b1, b2];
         a2.Books = [b2, b3];
@@ -63,7 +63,7 @@ public class TestControllerApi : IClassFixture<TestContainerApplicationFactory>
     public async Task ToListAsync()
     {
         var b1 = new Book { Title = "Hamlet", Isbn = "1234567890123" };
-        _libraryScope.BookRepository.Create(b1);
+        await _libraryScope.BookRepository.Set.AddAsync(b1);
         var affectedRows = await _libraryScope.SaveChangesAsync();
         Assert.Equal(1, affectedRows);
 
@@ -75,7 +75,7 @@ public class TestControllerApi : IClassFixture<TestContainerApplicationFactory>
     public async Task CanCreateAndDelete()
     {
         var a1 = new Author { Name = "William Shakespeare" };
-        _libraryScope.AuthorRepository.Create(a1);
+        await _libraryScope.AuthorRepository.Set.AddAsync(a1);
         await _libraryScope.SaveChangesAsync(default);
 
         _libraryScope.AuthorRepository.RemoveRange(a1);

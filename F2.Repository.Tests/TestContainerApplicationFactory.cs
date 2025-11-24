@@ -23,7 +23,7 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>
         .WithDatabase("test")
         .WithPortBinding(_port, true)
         .WithCleanUp(true)
-        .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(_port))
+        .WithWaitStrategy(Wait.ForUnixContainer().UntilInternalTcpPortIsAvailable(_port))
     ;
 
     public TestContainerApplicationFactory()

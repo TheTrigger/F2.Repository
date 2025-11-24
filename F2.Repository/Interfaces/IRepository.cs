@@ -14,16 +14,6 @@ namespace F2.Repository.Interfaces
 	public interface IRepository<TEntity> : IAsyncEnumerable<TEntity>, IQueryable<TEntity>, IRepository where TEntity : class
 	{
 		/// <summary>
-		/// Create a new <typeparamref name="TEntity"/> <paramref name="entity"/>
-		/// </summary>
-		EntityEntry<TEntity> Create([DisallowNull] TEntity entity);
-
-		/// <summary>
-		/// Update an <paramref name="entity"/>
-		/// </summary>
-		EntityEntry<TEntity> Update([DisallowNull] TEntity entity);
-
-		/// <summary>
 		/// Delete an <paramref name="entity"/>
 		/// </summary>
 		EntityEntry<TEntity> Remove([DisallowNull] TEntity entity);

@@ -18,6 +18,9 @@ jobs:
       with:
         dotnet-version: '10.x'
 
+    - name: Set build version (date-based)
+      run: echo "VERSION=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_ENV
+
     - name: Build
       run: dotnet build --configuration Release
 

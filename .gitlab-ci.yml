@@ -1,0 +1,30 @@
+image: mcr.microsoft.com/dotnet/sdk:10.0
+
+stages:
+  - build
+
+variables:
+  NUGET_SOURCE: "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/packages/nuget/index.json"
+  NUGET_GROUP_SOURCE: "$CI_SERVER_URL/api/v4/groups/38/-/packages/nuget/index.json"
+
+build_and_publish:
+  stage: build
+  only:
+    - master
+  script:
+    - export VERSION=$(date -u +%Y.%m.%d.%H%M)
+    - echo "Versione $VERSION"
+
+    # Add GitLab group feed for restoring F2.* dependencies
+    - dotnet nuget update source gitlab-f2 --source "$NUGET_GROUP_SOURCE" --username gitlab-ci-token --password "$CI_JOB_TOKEN" --store-password-in-clear-text
+
+    - dotnet build --configuration Release
+    - dotnet test --no-restore --verbosity normal
+
+    - dotnet pack F2.Repository/F2.Repository.csproj
+        --no-build
+        --configuration Release
+        -p:Version=$VERSION
+        -o .
+
+    - dotnet nuget push *.nupkg --api-key $CI_JOB_TOKEN --source "$NUGET_SOURCE"

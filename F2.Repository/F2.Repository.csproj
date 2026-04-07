@@ -7,7 +7,6 @@
 		<Description>Generic repository base pattern for EF Core + DatabaseScope</Description>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 		<IncludeSymbols>True</IncludeSymbols>
 		<Nullable>enable</Nullable>
 		<PackageIcon>icon.png</PackageIcon>

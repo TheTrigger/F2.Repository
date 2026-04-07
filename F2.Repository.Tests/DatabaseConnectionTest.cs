@@ -28,7 +28,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
     [Fact]
     public async Task TimeZone_UTC()
     {
-        var results = await _context.Database.SqlQueryRaw<string>("SHOW timezone;").ToListAsync();
+        var results = await _context.Database.SqlQueryRaw<string>("SHOW timezone;").ToListAsync(cancellationToken: TestContext.Current.CancellationToken);
         Assert.Equal("UTC", results[0]);
     }
 
@@ -40,7 +40,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         try
         {
             // Tentativo di eseguire una semplice operazione di lettura dal database.
-            var count = await EntityFrameworkQueryableExtensions.CountAsync(_libraryScope.BookRepository.Set);
+            var count = await EntityFrameworkQueryableExtensions.CountAsync(_libraryScope.BookRepository.Set, TestContext.Current.CancellationToken);
             Assert.True(count >= 0, "Connessione al database riuscita e conteggio libri ottenuto.");
         }
         catch (Exception ex)
@@ -79,7 +79,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         // Clear the tracker to get fresh data from the database
         _context.ChangeTracker.Clear();
 
-        var retrievedBook = await _context.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == book.Id);
+        var retrievedBook = await _context.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == book.Id, cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         Assert.NotNull(retrievedBook);
@@ -94,7 +94,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
 
         // Clean up
         _context.Books.Remove(retrievedBook);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(TestContext.Current.CancellationToken);
     }
 
     [Fact]
@@ -108,7 +108,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         };
 
         _context.Books.Add(book);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(TestContext.Current.CancellationToken);
 
 
 
@@ -120,6 +120,6 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         };
 
         _context.Books.Add(book2);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(TestContext.Current.CancellationToken);
     }
 }

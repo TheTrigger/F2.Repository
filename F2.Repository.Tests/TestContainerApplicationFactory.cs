@@ -16,8 +16,7 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>
 
     private readonly PostgreSqlContainer _applicationDatabase;
 
-    private readonly PostgreSqlBuilder _databaseContainerBuilder = new PostgreSqlBuilder()
-        .WithImage("postgres:16-alpine")
+    private readonly PostgreSqlBuilder _databaseContainerBuilder = new PostgreSqlBuilder("postgres:16-alpine")
         .WithUsername("test")
         .WithPassword("test")
         .WithDatabase("test")

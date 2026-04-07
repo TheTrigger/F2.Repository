@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
-using F2.Repository.Abstracts;
+﻿using F2.Repository.Abstracts;
 using F2.Repository.Demo.Models;
 using System.Collections.Generic;
 

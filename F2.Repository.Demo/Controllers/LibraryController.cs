@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using F2.Repository.Demo.Mapper.Dto;
 using F2.Repository.Demo.Repositories;
 
@@ -10,12 +9,10 @@ namespace F2.Repository.Demo.Controllers
     public class LibraryController : ControllerBase
     {
         private readonly AuthorRepository _authorRepository;
-        private readonly IMapper _mapper;
 
-        public LibraryController(AuthorRepository authorRepository, IMapper mapper)
+        public LibraryController(AuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
-            _mapper = mapper;
         }
 
         [HttpGet]

@@ -1,4 +1,3 @@
-using F2.Repository.Demo.Mapper;
 using F2.Repository.Demo.Models;
 using F2.Repository.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -22,8 +21,6 @@ public class Startup(IConfiguration configuration)
         services.AddDbContextFactory<LibraryContext>(config => config.UseNpgsql(connectionString));
         services.AddDatabaseScope<LibraryDbScope>();
 
-        // https://github.com/AutoMapper/AutoMapper.Extensions.Microsoft.DependencyInjection
-        services.AddAutoMapper(typeof(MappingProfile));
         services.AddControllers();
     }
 

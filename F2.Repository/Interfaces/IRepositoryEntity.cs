@@ -8,10 +8,10 @@ namespace F2.Repository.Interfaces
 	/// <typeparam name="TEntity"><inheritdoc/></typeparam>
 	/// <typeparam name="TPrimaryKey">Primary key type</typeparam>
 	public interface IRepositoryEntity<TEntity, TPrimaryKey> : IRepository<TEntity>
-		where TPrimaryKey : struct
-		where TEntity : class
+		where TPrimaryKey : struct, IEquatable<TPrimaryKey>
+		where TEntity : class, IEntity<TPrimaryKey>
 	{
-		TEntity Retrieve(TPrimaryKey id);
+		Task<TEntity?> RetrieveAsync(TPrimaryKey id, CancellationToken cancellationToken = default);
 
 		TEntity Update(TPrimaryKey id, [DisallowNull] TEntity entity);
 

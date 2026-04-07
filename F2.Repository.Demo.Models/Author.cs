@@ -7,6 +7,8 @@ public class Author : BaseEntity
 {
     public string Name { get; set; }
 
+    public DateTimeOffset Birthdate { get; set; }
+
     /// <summary>
     /// See <see cref="LibraryContext.OnModelCreating"/>
     /// </summary>

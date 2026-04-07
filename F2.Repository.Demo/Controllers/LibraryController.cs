@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using F2.Repository.Demo.Mapper.Dto;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using F2.Repository.Demo.Models;
 using F2.Repository.Demo.Repositories;
 
 namespace F2.Repository.Demo.Controllers
@@ -16,11 +19,10 @@ namespace F2.Repository.Demo.Controllers
         }
 
         [HttpGet]
-        public ActionResult<AuthorDto> Get()
+        public async Task<ActionResult<List<Author>>> Get()
         {
-            var dto = _authorRepository.GetAuthorsAndBooks<AuthorDto>();
-
-            return Ok(dto);
+            var authors = await _authorRepository.Include(a => a.Books).ToListAsync();
+            return Ok(authors);
         }
     }
 }

@@ -42,5 +42,7 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>
     {
         await _applicationDatabase.StopAsync().ConfigureAwait(false);
         await base.DisposeAsync().ConfigureAwait(false);
+
+        GC.SuppressFinalize(this);
     }
 }

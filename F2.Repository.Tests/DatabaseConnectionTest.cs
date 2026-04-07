@@ -35,7 +35,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
     [Fact]
     public async Task TestDatabaseConnection()
     {
-        Exception connectionException = null;
+        Exception? connectionException = null;
 
         try
         {

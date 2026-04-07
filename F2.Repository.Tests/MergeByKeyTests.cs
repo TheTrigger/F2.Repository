@@ -53,8 +53,7 @@ public class MergeByKeyTests : IClassFixture<TestContainerApplicationFactory>
         var newBooks = new List<Book>
         {
             // Updating existing book
-            new Book
-            {
+            new() {
                 Id = existingBookId,
                 Title = "Updated Book",
                 Isbn = "1234567890123",
@@ -62,8 +61,7 @@ public class MergeByKeyTests : IClassFixture<TestContainerApplicationFactory>
                 ArrivedAt = DateTimeOffset.UtcNow
             },
             // Adding a new book
-            new Book
-            {
+            new() {
                 //Id = Guid.NewGuid(),
                 Title = "New Book",
                 Isbn = "9876543210987",

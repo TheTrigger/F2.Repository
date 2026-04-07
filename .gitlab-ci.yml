@@ -19,7 +19,7 @@ build_and_publish:
     - dotnet nuget update source gitlab-f2 --source "$NUGET_GROUP_SOURCE" --username gitlab-ci-token --password "$CI_JOB_TOKEN" --store-password-in-clear-text
 
     - dotnet build --configuration Release
-    - dotnet test --no-build --no-restore --configuration Release --verbosity normal
+    - dotnet run --project F2.Repository.Tests --configuration Release --no-build
 
     - dotnet pack F2.Repository/F2.Repository.csproj
         --no-build

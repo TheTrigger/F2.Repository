@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using F2.Repository.Demo.Models;
 using F2.Repository.Demo.Repositories;
 
 namespace F2.Repository.Demo.Controllers

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using F2.Repository.Extensions;
 
-namespace F2.Repository.Demo.Models.Configurations;
+namespace F2.Repository.Demo.Configurations;
 
 public class AuthorEntityConfiguration : IEntityTypeConfiguration<Author>
 {

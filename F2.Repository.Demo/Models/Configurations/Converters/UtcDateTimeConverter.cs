@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 
-namespace F2.Repository.Demo.Models.Configurations.Converters;
+namespace F2.Repository.Demo.Configurations.Converters;
 
 public class UtcDateTimeConverter : ValueConverter<DateTime, DateTime>
 {

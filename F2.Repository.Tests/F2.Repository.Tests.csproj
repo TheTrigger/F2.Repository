@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
@@ -36,7 +36,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\F2.Repository.Demo.Models\F2.Repository.Demo.Models.csproj" />
 		<ProjectReference Include="..\F2.Repository.Demo\F2.Repository.Demo.csproj" />
 		<ProjectReference Include="..\F2.Repository\F2.Repository.csproj" />
 	</ItemGroup>

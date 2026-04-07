@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace F2.Repository.Demo.Models;
+namespace F2.Repository.Demo;
 
 public class Author : BaseEntity
 {

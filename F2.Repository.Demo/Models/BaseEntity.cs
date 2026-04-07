@@ -1,7 +1,7 @@
 ﻿using F2.Repository.Interfaces;
 using System;
 
-namespace F2.Repository.Demo.Models;
+namespace F2.Repository.Demo;
 
 public abstract class BaseEntity : IEntity<Guid>, ITimestampedEntity
 {

@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/workflows/nuget.yml" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="F2.Repository.Demo/F2.Repository.Demo.csproj" />
+  <Project Path="F2.Repository.Tests/F2.Repository.Tests.csproj" />
+  <Project Path="F2.Repository/F2.Repository.csproj" />
+</Solution>

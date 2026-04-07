@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using F2.Repository.Extensions;
 
-namespace F2.Repository.Demo.Models;
+namespace F2.Repository.Demo;
 
 public class LibraryContext : DbContext
 {

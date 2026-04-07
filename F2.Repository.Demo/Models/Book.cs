@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace F2.Repository.Demo.Models;
+namespace F2.Repository.Demo;
 
 public class Book : BaseEntity
 {

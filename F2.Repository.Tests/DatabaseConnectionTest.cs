@@ -1,6 +1,6 @@
 ﻿
 using F2.Repository.Demo;
-using F2.Repository.Demo.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

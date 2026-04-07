@@ -1,4 +1,3 @@
-using F2.Repository.Demo.Models;
 using F2.Repository.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

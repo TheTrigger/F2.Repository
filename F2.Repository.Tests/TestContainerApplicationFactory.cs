@@ -63,7 +63,7 @@ public class TestContainerApplicationFactory : ServerFixture<Startup>
         ;
     }
 
-    public override async Task InitializeAsync()
+    public override async ValueTask InitializeAsync()
     {
         await _applicationDatabase.StartAsync().ConfigureAwait(false);
         await base.InitializeAsync().ConfigureAwait(false);

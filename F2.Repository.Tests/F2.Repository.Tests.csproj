@@ -2,8 +2,11 @@
 
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
-
+		<OutputType>Exe</OutputType>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,15 +22,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="F2.Testing" Version="8.0.*" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+		<PackageReference Include="F2.Testing" Version="2026.*" />
 		<PackageReference Include="Testcontainers.PostgreSql" Version="4.*" />
-		<PackageReference Include="xunit" Version="2.9.*" />
+		<PackageReference Include="xunit.v3" Version="3.*" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="coverlet.collector" Version="6.0.*">
+		<PackageReference Include="coverlet.collector" Version="8.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

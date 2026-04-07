@@ -40,7 +40,7 @@ public class DatabaseConnectionTest : IClassFixture<TestContainerApplicationFact
         try
         {
             // Tentativo di eseguire una semplice operazione di lettura dal database.
-            var count = await _libraryScope.BookRepository.CountAsync();
+            var count = await EntityFrameworkQueryableExtensions.CountAsync(_libraryScope.BookRepository.Set);
             Assert.True(count >= 0, "Connessione al database riuscita e conteggio libri ottenuto.");
         }
         catch (Exception ex)

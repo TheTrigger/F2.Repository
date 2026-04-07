@@ -67,7 +67,7 @@ public class TestControllerApi : IClassFixture<TestContainerApplicationFactory>
         var affectedRows = await _libraryScope.SaveChangesAsync();
         Assert.Equal(1, affectedRows);
 
-        var results = await _libraryScope.BookRepository.ToListAsync();
+        var results = await EntityFrameworkQueryableExtensions.ToListAsync(_libraryScope.BookRepository.Set);
         Assert.NotNull(results);
     }
 

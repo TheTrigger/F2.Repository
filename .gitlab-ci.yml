@@ -6,11 +6,15 @@ stages:
 variables:
   NUGET_SOURCE: "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/packages/nuget/index.json"
   NUGET_GROUP_SOURCE: "$CI_SERVER_URL/api/v4/groups/38/-/packages/nuget/index.json"
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
 
 build_and_publish:
   stage: build
   only:
     - master
+  services:
+    - docker:dind
   script:
     - export VERSION=$(date -u +%Y.%m.%d.%H%M)
     - echo "Versione $VERSION"
